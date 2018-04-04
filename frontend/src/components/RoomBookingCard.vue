@@ -135,7 +135,7 @@ export default {
         while (this.room.schedule[i]) {
           options.push({
             label: `第${i + 1}节（${schedule[i].end}）`,
-            value: i
+            value: i + 1
           })
           if (i - start + 1 >= 4) {
             break
@@ -149,7 +149,7 @@ export default {
       let schedule = this.room.schedule.slice()
       // console.log(this.start, this.end)
       if (this.start !== null && this.end !== null) {
-        for (let i = this.start - 1; i <= this.end; i++) {
+        for (let i = this.start - 1; i < this.end; i++) {
           if (schedule[i] === 1) {
             schedule[i] = -1
           }
@@ -162,6 +162,9 @@ export default {
   watch: {
     start: function(newStart, oleStart) {
       this.end = null
+    },
+    room: function() {
+      this.onResetClick()
     }
   },
   methods: {
@@ -170,7 +173,38 @@ export default {
       this.end = null
     },
     onReservationClick() {
+      this.$q
+        .dialog({
+          title: '确认',
+          message: `确认预约吗`,
+          ok: '确认',
+          cancel: '取消'
+        })
+        .then(() => {
+          this.postReservationForm()
+          // Picked "OK"
+        })
+        .catch(() => {
+          // Picked "Cancel" or dismissed
+        })
       this.opened = true
+    },
+    postReservationForm() {
+      this.$http
+        .post('/api/ces/orders/', {
+          roomID: this.room.id,
+          start: this.start,
+          end: this.end,
+          date: this.date.valueOf() / 1000
+        })
+        .then(resp => {
+          console.log(resp)
+          this.$q.notify('预约成功！')
+        })
+        .catch(err => {
+          console.log(err)
+          this.$q.notify('时间被占用')
+        })
     }
   }
 }

@@ -66,9 +66,9 @@ export default {
     }
   },
   created () {
-    console.log(this.$route)
-    console.log(this)
-    console.log(this.$router)
+    // console.log(this.$route)
+    // console.log(this)
+    // console.log(this.$router)
   },
   methods: {
     openURL
