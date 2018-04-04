@@ -66,10 +66,15 @@ module.exports = function (ctx) {
         'QCardSeparator',
         'QCardActions',
         'QBtnGroup',
-        'QPageSticky'
+        'QPageSticky',
+        'QModal',
+        'QInput',
+        'QField',
+        'QSelect'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

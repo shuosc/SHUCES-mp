@@ -1,10 +1,11 @@
 
 export default [
   {
-    path: '/',
-    component: () => import('layouts/default'),
+    path: '/room-booking',
+    component: () => import('layouts/RoomBooking'),
     children: [
-      { path: '', component: () => import('pages/index') }
+      { path: 'new', name: 'booking-order-new', component: () => import('pages/RoomBookingNew') },
+      { path: 'history', name: 'booking-order-history', component: () => import('pages/RoomBookingHistory') }
     ]
   },
 

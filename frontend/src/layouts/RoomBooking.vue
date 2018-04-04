@@ -1,28 +1,22 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-layout-header>
-      <q-toolbar
-        color="primary"
-        inverted
-      >
-        <q-btn
-          flat
-          dense
-          round
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        >
-          <q-icon name="menu" />
+      <q-toolbar color="primary" inverted>
+        <q-btn flat dense round @click="leftDrawerOpen = !leftDrawerOpen" aria-label="Menu">
+          <q-icon name="home" />
         </q-btn>
-
         <q-toolbar-title>
           教室预约
           <!-- <div slot="subtitle">Running on Quasar v{{ $q.version }}</div> -->
         </q-toolbar-title>
+        <q-btn v-if="$route.name==='booking-order-new'" flat dense icon="history" @click="$router.push('history')" label="预约记录">
+        </q-btn>
+        <q-btn v-else flat dense icon="add" @click="$router.push('new')" label="新增预约">
+        </q-btn>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
+    <!-- <q-layout-drawer
       v-model="leftDrawerOpen"
       :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null"
     >
@@ -53,7 +47,7 @@
           <q-item-main label="Twitter" sublabel="@quasarframework" />
         </q-item>
       </q-list>
-    </q-layout-drawer>
+    </q-layout-drawer> -->
 
     <q-page-container>
       <router-view />
@@ -71,6 +65,11 @@ export default {
       leftDrawerOpen: this.$q.platform.is.desktop
     }
   },
+  created () {
+    console.log(this.$route)
+    console.log(this)
+    console.log(this.$router)
+  },
   methods: {
     openURL
   }
@@ -78,4 +77,5 @@ export default {
 </script>
 
 <style>
+
 </style>
