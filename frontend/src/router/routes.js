@@ -1,6 +1,13 @@
 
 export default [
   {
+    path: '/',
+    component: () => import('layouts/Default'),
+    children: [
+      { path: 'login', name: 'login', component: () => import('pages/Login') }
+    ]
+  },
+  {
     path: '/room-booking',
     component: () => import('layouts/RoomBooking'),
     children: [

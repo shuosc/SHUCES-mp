@@ -7,7 +7,7 @@
         </q-btn>
         <q-toolbar-title>
           教室预约
-          <!-- <div slot="subtitle">Running on Quasar v{{ $q.version }}</div> -->
+          <div slot="subtitle">Running on Quasar v{{ $q.version }}</div>
         </q-toolbar-title>
         <q-btn no-ripple v-if="$route.name==='booking-order-new'" flat dense icon="history" @click="$router.push('history')" label="预约记录">
         </q-btn>
