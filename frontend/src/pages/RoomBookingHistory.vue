@@ -3,6 +3,7 @@
     div.q-ml-md.q-mr-md
       q-card.q-mt-lg(v-for="order in orders" :key="order.id")
         q-card-title.q-ml-md(class="q-subheading") {{order.room}}
+          <span slot="subtitle">{{order.status}}</span>
         q-card-separator
         q-card-main
           <dl class="horizontal">
@@ -15,8 +16,8 @@
           </dl>
         q-card-separator
         q-card-actions(align="end")
-          //- q-btn(flat  icon="event" label="修改")
-          q-btn(flat  icon="delete" label="取消预约" @click="onDeleteClick(order.id)")
+          //- q-btn(flat  icon="event" label="提前结束" :disable="order.status!=='已开始'")
+          q-btn(flat v-if="order.status=='未开始'" icon="delete" label="取消预约" @click="onDeleteClick(order.id)")
 </template>
 
 <style>
@@ -39,7 +40,7 @@ export default {
   methods: {
     getHistory() {
       this.$http
-        .get('/api/ces/orders/?type=personal')
+        .get('/api/room-orders/?type=personal')
         .then(resp => {
           this.orders = resp.data.orders
         })
@@ -63,7 +64,7 @@ export default {
         })
     },
     postDeleteForm(id) {
-      this.$http.delete(`/api/ces/orders/${id}`).then(resp => {
+      this.$http.delete(`/api/room-orders/${id}`).then(resp => {
         this.$q.notify('取消成功')
         this.getHistory()
       })

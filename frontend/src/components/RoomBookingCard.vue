@@ -183,7 +183,7 @@ export default {
     },
     postReservationForm() {
       this.$http
-        .post('/api/ces/orders/', {
+        .post('/api/room-orders/', {
           roomID: this.room.id,
           start: this.start,
           end: this.end,

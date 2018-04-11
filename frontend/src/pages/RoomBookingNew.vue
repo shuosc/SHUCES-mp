@@ -64,9 +64,10 @@ export default {
     getRooms() {
       let timestamp = this.date.valueOf() / 1000
       this.$http
-        .get('/api/ces/rooms/', {
+        .get('/api/rooms', {
           params: {
-            timestamp: timestamp
+            timestamp: timestamp,
+            group: 'ces'
           }
         })
         .then(res => {
