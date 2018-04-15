@@ -3,5 +3,7 @@ export default {
   password: '',
   avatar: '',
   name: '',
+  nickname: '',
+  email: '',
   token: ''
 }
