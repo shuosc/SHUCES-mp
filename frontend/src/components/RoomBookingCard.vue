@@ -10,11 +10,11 @@
         div
         div
           div.row.no-wrap(flat)
-            div.justify-start(v-for="i in 13" :id="i" style="color:grey;height:1rem;width:3rem;") |{{schedule[i-1].start}}
+            div.justify-start(v-for="i in 13" :key="i" style="color:grey;height:1rem;width:3rem;") |{{schedule[i-1].start}}
           q-btn-group.row.no-wrap(flat)
             q-btn(flat
             :class="{'bg-blue-grey':roomSchedule[i-1]===1,'bg-deep-orange-4':roomSchedule[i-1]===0,'bg-green':roomSchedule[i-1]===-1}"
-            v-for="i in 13" :id="i" color="white" style="height:2rem;width:3rem;" :label="i")
+            v-for="i in 13" :key="i" color="white" style="height:2rem;width:3rem;" :label="i")
         div
       div.row
         q-select.col-6(
