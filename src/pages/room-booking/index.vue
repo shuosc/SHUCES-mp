@@ -1,7 +1,10 @@
 <template lang="pug">
   div.page()
-    //- div.toolbar
-    //- div.q-ml-md.q-mr-md.q-mt-md
+    div.toolbar.ces(style="font-size:12px;display:flex;justify-content:space-between;")
+      div(style="flex:1;") 帮助提示
+      div(style="flex:1;")
+      div(style="flex:1;text-align:right;") 我的预约
+    div.bg-white.ces(style="position:relative;top:5px;z-index:100;text-align:center;font-weight:bold;font-size:15px;height:30px;border-radius:10px;padding:5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);margin-left:10px;margin-right:10px;")
       div
         span(v-if="restrict>0")| 预约说明：您当日还可以借{{restrict}}课时
         span(v-else)| 预约说明：您当日借教室课时配额已满
@@ -9,21 +12,27 @@
       //- room-booking-card(v-for="(room,index) in rooms" :id="room.id" :room="room" :index=index :key="room.id" :date="date" @reservateSuccess="getRooms")
     //- div(style="width:100vw;display:flex;overflow:scroll;" v-for="i in 10")
       //- div(style="max-width:20vw;min-width:30px;") 511
-    div.date(style="display:flex;")
-      div(style="flex:1;height:2rem;")
-        | PREV
-      div(style="flex:1;height:2rem;" v-for="i in 7" :key="")
-        | {{i+1}}
-      div(style="flex:1;height:2rem;")
-        | NEXT
-    div(style="display:flex;background-color:white; box-sizing: border-box;")
-      div(style="flex:1;")
-        div.room(v-for="(room,index) in rooms",:key="room.name")
-          | {{room.name}}
-      div(style="flex:9;overflow-x:scroll;")
-        div.time-row(v-for="(room,index) in rooms",:key="room.name")
-          div.bg-gray.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start")
-            span  {{time.start}}
+    div(style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);border-radius:10px;margin:10px;")
+      div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
+        div(style="flex:1;height:2rem;")
+          | 向前
+        div(:class="{'border-date':day===i}" style="flex:1" v-for="i in 4" :key="")
+          p
+            | 周{{i+1}}
+            br
+            | 05/06
+        //- div(style="flex:1;")
+          | {{formatteDateIndictor}}
+        div(style="flex:1;height:2rem;")
+          | 向后
+      div(style="font-weight:bold;display:flex;box-sizing: border-box;")
+        div.ces(style="flex:1;")
+          div.room(v-for="(room,index) in rooms",:key="room.name")
+            | {{room.name}}
+        div.bg-olive(style="flex:9;overflow-x:scroll;overflow-y:hidden;")
+          div.time-row(v-for="(room,index) in rooms",:key="room.name")
+            div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start")
+              span  {{time.start}}
     div(expand position="bottom" style="z-index:1000;")
       div.row.justify-around.full-width.bg-white.q-pb-md.q-pt-md.shadow-3
         div
@@ -35,18 +44,33 @@
 </template>
 
 <style scoped>
-.toolbar{
-  height: 56px;
-  width:100vw;
+.toolbar {
+  width: 100vw;
   position: fixed;
-  top:0;
-  background-color: white;
-  box-shadow: 0 10px 10px #eee;
+  top: 0;
+  left: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 10px 10px;
+  height: 40px;
+  /* margin-left: 0.5rem; */
+  /* margin-right: 0.5rem; */
+  /* padding-top: 1.5rem; */
+  /* color: white; */
+  /* padding-bottom: 1.5rem; */
+  /* background-color: #7EB3EC; */
+  /* border-bottom: 2px solid #6b93ad ; */
+  /* background-image: linear-gradient(180deg, #85b7d8 0%, #c2e9fb 90%); */
+}
+.toolbar div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .page {
   /* background-color: #eee; */
   /* min-height:100vh;
   box-sizing: border-box; */
+  padding-top: 40px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -55,12 +79,19 @@
   /* padding: 200rpx 0; */
   box-sizing: border-box;
 }
+.border-date {
+  border-bottom: 3px solid;
+}
 .date {
-  border-radius: 10px;
-  background-color: white;
-  margin: 10px 10px 0px 10px;
+  /* border-radius: 10px; */
+  /* margin: 10px 10px 0px 10px; */
   box-sizing: border-box;
-  box-shadow: rgb(50, 135, 233);
+  /* box-shadow: rgb(50, 135, 233); */
+}
+.date > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .room {
   height: 50px;
@@ -71,33 +102,45 @@
   align-items: center;
   box-sizing: border-box;
   justify-content: center;
-  font-size: 15px;
-  color: #333;
+  font-size: 12px;
+  /* color: #333; */
 }
 .time-row {
   height: 50px;
   box-sizing: border-box;
+  white-space: nowrap;
   /* background-color: #eee; */
-  border-bottom: 1px solid #bbb;
-  display: inline-flex;
+  border-bottom: 1px solid #fff;
+  display: block;
+  width: 650px;
+  /* flex-flow: row no-wrap; */
+  /* margin: auto; */
+  /* overflow: auto; */
 }
-.time-row:first-of-type{
-  border-top: 1px solid #bbb;
+.time-row:first-of-type {
+  border-top: 1px solid #fff;
 }
-.time-cell:first-of-type{
-  border-left: 1px solid #ebbbee;
+.time-cell:first-of-type {
+  border-left: 1px solid #fff;
 }
 .time-cell {
+  display: inline-block;
   width: 50px;
   box-sizing: border-box;
-  border-right: 1px solid #bbb;
+  border-right: 1px solid;
   /* font-size: 15px; */
   /* background-color: green; */
-  color:#eee;
-  height: 100%;
+  color: #fff;
+  height: 50px;
+  position: relative;
+  /* display: inline; */
 }
 .time-cell span {
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
 
@@ -116,6 +159,7 @@ export default {
     return {
       opened: false,
       schedule: schedule,
+      day: 1,
       rooms: [
         {
           name: '402'

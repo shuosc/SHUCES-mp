@@ -24,6 +24,7 @@
 
 */
 /* Backgrounds */
+.bg-ces {background-color: #227ae5}
 .bg-navy { background-color: #001F3F; }
 .bg-blue { background-color: #0074D9; }
 .bg-aqua { background-color: #7FDBFF; }
@@ -42,6 +43,7 @@
 .bg-silver { background-color: #DDDDDD; }
 .bg-black { background-color: #111111; }
 /* Colors */
+.ces {color: #227ae5}
 .navy { color: #001F3F; }
 .blue { color: #0074D9; }
 .aqua { color: #7FDBFF; }
