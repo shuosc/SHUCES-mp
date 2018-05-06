@@ -30,7 +30,8 @@
         q-btn(flat wait-for-ripple icon="event" label="预约" @click="onReservationClick()")
 </template>
 <script>
-import { schedule } from '../libs/const'
+// import { schedule } from '/utils/index'
+const schedule = []
 const rawStartOptions = [
   {
     label: '第一节 (8：00)',

@@ -1,11 +1,15 @@
 module.exports = [
-  {
-    alias: '/',
-    path: '/pages/index/index',
-    name: 'indexlg'
-  },
-  {
-    path: '/pages/logs/index',
-    name: 'index'
-  }
+//   {
+//     alias: '/',
+//     path: '/pages/index/index',
+//     name: 'index'
+//   },
+//   {
+//     path: '/pages/room-booking/new',
+//     name: 'newRoomBooking'
+//   },
+//   {
+//     path: '/pages/room-booking/history',
+//     name: 'RoomBookingHistory'
+//   }
 ]
