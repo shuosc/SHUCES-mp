@@ -3446,6 +3446,10 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
+mpvue-entry@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/mpvue-entry/-/mpvue-entry-0.3.7.tgz#a13023fb4fa3d430b79a0ebdc9dd2bb534570aac"
+
 mpvue-loader@^1.0.13:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/mpvue-loader/-/mpvue-loader-1.0.13.tgz#2b759e5e9be266f49db55a14e2f5b5424805c2eb"
@@ -5432,6 +5436,10 @@ vue-loader@^13.0.4:
     vue-hot-reload-api "^2.2.0"
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
+
+vue-router@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.1.tgz#d9b05ad9c7420ba0f626d6500d693e60092cc1e9"
 
 vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
   version "3.1.2"
