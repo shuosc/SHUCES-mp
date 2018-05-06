@@ -1,16 +1,21 @@
-# [WIP]上海大学计算机学院微信公众号服务系统
+# shuces_mp_app
 
-## 功能实现
-* 场地预约
+> A Mpvue project
 
-## 源代码说明
+## Build Setup
 
-.
+``` bash
+# install dependencies
+npm install
 
-├── ./backend  ---后端
+# serve with hot reload at localhost:8080
+npm run dev
 
-├── ./frontend ---前端
+# build for production with minification
+npm run build
 
-└── ./instance
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 
-## API
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
