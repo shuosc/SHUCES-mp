@@ -1,6 +1,7 @@
 <script>
 import './weui.css'
 import './colors.css'
+// import './colors.styl'
 export default {
   created() {
     // 调用API从本地缓存中获取数据
@@ -12,7 +13,9 @@ export default {
 }
 </script>
 
-<style >
+<style lang="stylus">
+// @import './varibles.styl'
+// @import './colors.styl'
 .container {
   height: 100%;
   display: flex;

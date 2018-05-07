@@ -1,12 +1,12 @@
 <template lang="pug">
   div.page()
     div.toolbar.ces(style="font-size:12px;display:flex;justify-content:space-between;")
-      div(style="flex:1;") 帮助提示
+      //- div(style="flex:1;") 帮助提示
       div(style="flex:1;")
-      div(style="flex:1;text-align:right;") 我的预约
+      div(style="flex:1;text-align:right;") 帮助提示
     div.bg-white.ces(style="position:relative;top:5px;z-index:100;text-align:center;font-weight:bold;font-size:15px;height:30px;border-radius:10px;padding:5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);margin-left:10px;margin-right:10px;")
       div
-        span(v-if="restrict>0")| 预约说明：您当日还可以借{{restrict}}课时
+        span(v-if="restrict>0")| 我的预约
         span(v-else)| 预约说明：您当日借教室课时配额已满
     //- div.q-ml-md.q-mr-md
       //- room-booking-card(v-for="(room,index) in rooms" :id="room.id" :room="room" :index=index :key="room.id" :date="date" @reservateSuccess="getRooms")
@@ -14,7 +14,7 @@
       //- div(style="max-width:20vw;min-width:30px;") 511
     div(style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);border-radius:10px;margin:10px;")
       div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
-        div(style="flex:1;height:2rem;")
+        //- div(style="flex:1;height:2rem;")
           | 向前
         div(:class="{'border-date':day===i}" style="flex:1" v-for="i in 4" :key="")
           p
@@ -23,14 +23,17 @@
             | 05/06
         //- div(style="flex:1;")
           | {{formatteDateIndictor}}
-        div(style="flex:1;height:2rem;")
+        //- div(style="flex:1;height:2rem;")
           | 向后
       div(style="font-weight:bold;display:flex;box-sizing: border-box;")
         div.ces(style="flex:1;")
           div.room(v-for="(room,index) in rooms",:key="room.name")
             | {{room.name}}
-        div.bg-olive(style="flex:9;overflow-x:scroll;overflow-y:hidden;")
+        div.time(style="flex:9;overflow-x:scroll;overflow-y:hidden;")
+          div.time-pointer()
           div.time-row(v-for="(room,index) in rooms",:key="room.name")
+            //- div.time-event(v-for="(event,evetnIndex) in room.events")
+            div.bg-blue.time-event(style="width:100px;left:0;top:0;height:50px;z-index:100;")
             div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start")
               span  {{time.start}}
     div(expand position="bottom" style="z-index:1000;")
@@ -60,6 +63,10 @@
   /* background-color: #7EB3EC; */
   /* border-bottom: 2px solid #6b93ad ; */
   /* background-image: linear-gradient(180deg, #85b7d8 0%, #c2e9fb 90%); */
+}
+.time {
+  background-color: rgb(132, 156, 172);
+  position: relative;
 }
 .toolbar div {
   display: flex;
@@ -113,6 +120,7 @@
   border-bottom: 1px solid #fff;
   display: block;
   width: 650px;
+  position: relative;
   /* flex-flow: row no-wrap; */
   /* margin: auto; */
   /* overflow: auto; */
@@ -135,12 +143,27 @@
   position: relative;
   /* display: inline; */
 }
+.time-pointer {
+  position: absolute;
+  top: 0;
+  left: 120px;
+  width: 2px;
+  height: 500px;
+  background-color: blueviolet;
+}
 .time-cell span {
   font-size: 12px;
   font-weight: bold;
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 200;
+}
+.time-event {
+  position: absolute;
+}
+.time-event:hover {
+  background-color: aqua !important;
 }
 </style>
 
