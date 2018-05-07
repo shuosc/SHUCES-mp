@@ -1,13 +1,22 @@
 <template lang="pug">
   div.page()
-    div.toolbar.ces(style="font-size:12px;display:flex;justify-content:space-between;")
+    //- div.toolbar.ces(style="font-size:12px;display:flex;justify-content:space-between;")
       //- div(style="flex:1;") 帮助提示
       div(style="flex:1;")
       div(style="flex:1;text-align:right;") 帮助提示
-    div.bg-white.ces(style="position:relative;top:5px;z-index:100;text-align:center;font-weight:bold;font-size:15px;height:30px;border-radius:10px;padding:5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);margin-left:10px;margin-right:10px;")
-      div
-        span(v-if="restrict>0")| 我的预约
-        span(v-else)| 预约说明：您当日借教室课时配额已满
+    div.bg-white.ces(style="white-space:nowrap;z-index:100;font-weight:bold;font-size:15px;border-radius:10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);")
+      div(style="margin-left:10px;padding-left:10px;border-left:4px solid blue;") 我的预约
+      //- div
+        | 504 09/23 18:00-19:00 已进行30分钟
+      //- div
+        | 504 09/23 18:00-19:00 还有三十分钟开始
+      div(style="overflow-x:scroll;padding:10px;")
+        div(style="font-size:10px;display:inline-block;height:80px;width:100px;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);margin-left:10px;" v-for="i in 3")
+          div
+            | 504
+          div 09/23 18:00-19:00
+          div 
+            | 提前结束
     //- div.q-ml-md.q-mr-md
       //- room-booking-card(v-for="(room,index) in rooms" :id="room.id" :room="room" :index=index :key="room.id" :date="date" @reservateSuccess="getRooms")
     //- div(style="width:100vw;display:flex;overflow:scroll;" v-for="i in 10")
@@ -30,13 +39,16 @@
           div.room(v-for="(room,index) in rooms",:key="room.name")
             | {{room.name}}
         div.time(style="flex:9;overflow-x:scroll;overflow-y:hidden;")
+          //- div.ces(style="position:absolute;left:0;top:0;width:30px'")
+            div.room(v-for="(room,index) in rooms",:key="room.name")
+              | {{room.name}}
           div.time-pointer()
           div.time-row(v-for="(room,index) in rooms",:key="room.name")
             //- div.time-event(v-for="(event,evetnIndex) in room.events")
             div.bg-blue.time-event(style="width:100px;left:0;top:0;height:50px;z-index:100;")
-            div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start")
+            div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start" @click="onTimeCellClick(room,time)")
               span  {{time.start}}
-    div(expand position="bottom" style="z-index:1000;")
+    //- div(expand position="bottom" style="z-index:1000;")
       div.row.justify-around.full-width.bg-white.q-pb-md.q-pt-md.shadow-3
         div
           button(:disable="disablePrvious" icon="skip_previous" label="上一天" @click="onPreviousClick")
@@ -46,7 +58,7 @@
           button(:disable="disableNext" icon-right="skip_next" label="下一天" @click="onNextClick")
 </template>
 
-<style scoped>
+<style scoped >
 .toolbar {
   width: 100vw;
   position: fixed;
@@ -77,7 +89,7 @@
   /* background-color: #eee; */
   /* min-height:100vh;
   box-sizing: border-box; */
-  padding-top: 40px;
+  /* padding-top: 40px; */
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -159,6 +171,9 @@
   left: 0;
   z-index: 200;
 }
+.time-cell:hover {
+  background-color: aqua !important;
+}
 .time-event {
   position: absolute;
 }
@@ -237,6 +252,12 @@ export default {
   //   }
   // },
   methods: {
+    onTimeCellClick(room, time) {
+      console.log(room, time)
+      wx.navigateTo({
+        url: 'new'
+      })
+    },
     getRooms() {
       let timestamp = this.date.valueOf() / 1000
       this.$http

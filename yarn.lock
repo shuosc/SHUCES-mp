@@ -3723,22 +3723,22 @@ mpvue-loader@^1.0.13:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.5.3"
 
-mpvue-template-compiler@^1.0.10:
+mpvue-template-compiler@^1.0.11:
   version "1.0.11"
-  resolved "https://registry.yarnpkg.com/mpvue-template-compiler/-/mpvue-template-compiler-1.0.11.tgz#aab4f89c07b98030b8be3009002f8b953a2b4f68"
+  resolved "http://registry.npm.taobao.org/mpvue-template-compiler/download/mpvue-template-compiler-1.0.11.tgz#aab4f89c07b98030b8be3009002f8b953a2b4f68"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
 
 mpvue-webpack-target@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/mpvue-webpack-target/-/mpvue-webpack-target-1.0.0.tgz#5117eeecafc29f35c3e3dfd5bcb7e5a1b8e82b68"
+  resolved "http://registry.npm.taobao.org/mpvue-webpack-target/download/mpvue-webpack-target-1.0.0.tgz#5117eeecafc29f35c3e3dfd5bcb7e5a1b8e82b68"
   dependencies:
     webpack "^3.4.0"
 
-mpvue@^1.0.10:
+mpvue@^1.0.11:
   version "1.0.11"
-  resolved "https://registry.yarnpkg.com/mpvue/-/mpvue-1.0.11.tgz#65b2f9c8c35b8447d020f10e47bdc2ff51a2e13d"
+  resolved "http://registry.npm.taobao.org/mpvue/download/mpvue-1.0.11.tgz#65b2f9c8c35b8447d020f10e47bdc2ff51a2e13d"
 
 ms@2.0.0:
   version "2.0.0"
@@ -5977,9 +5977,9 @@ webpack-merge@^4.1.0:
   dependencies:
     lodash "^4.17.5"
 
-webpack-mpvue-asset-plugin@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/webpack-mpvue-asset-plugin/-/webpack-mpvue-asset-plugin-0.0.1.tgz#ff2e5c46e794244f4a21a8bdfb4269cf8a5ded22"
+webpack-mpvue-asset-plugin@^0.0.2:
+  version "0.0.2"
+  resolved "http://registry.npm.taobao.org/webpack-mpvue-asset-plugin/download/webpack-mpvue-asset-plugin-0.0.2.tgz#30ad2904fb33de2ab63233f9099c26d13c7e3a15"
 
 webpack-sources@^0.1.0:
   version "0.1.5"

@@ -33,9 +33,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "房间预约",
-					"pathName": "pages/room-booking/main"
+					"pathName": "pages/room-booking/index",
+					"query": ""
 				}
 			]
 		}

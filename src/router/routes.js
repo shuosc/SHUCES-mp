@@ -1,15 +1,27 @@
 module.exports = [
-//   {
-//     alias: '/',
-//     path: '/pages/index/index',
-//     name: 'index'
-//   },
-//   {
-//     path: '/pages/room-booking/new',
-//     name: 'newRoomBooking'
-//   },
-//   {
-//     path: '/pages/room-booking/history',
-//     name: 'RoomBookingHistory'
-//   }
+  {
+    alias: '/',
+    path: '/pages/index/index',
+    name: 'home',
+    config: {
+      navigationBarTitleText: '文章列表',
+      enablePullDownRefresh: true
+    }
+  },
+  {
+    path: '/pages/room-booking/index',
+    name: 'roomBookingStatus',
+    config: {
+      navigationBarTitleText: '文章列表',
+      enablePullDownRefresh: true
+    }
+  },
+  {
+    path: '/pages/room-booking/new',
+    name: 'RoomBookingNew',
+    config: {
+      navigationBarTitleText: '文章列表',
+      enablePullDownRefresh: true
+    }
+  }
 ]
