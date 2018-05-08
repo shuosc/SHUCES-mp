@@ -77,22 +77,34 @@
 </style>
 
 <script>
-// const timeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const timeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 import RoomSchedule from '@/components/RoomSchedule'
-const schedule = []
+// const schedule = []
 export default {
   components: {
     RoomSchedule
   },
   name: 'RoomBookingNew',
-  // computed: {
-  //   startOptions: function() {
-  //     let options = []
-  //     options = rawStartOptions.filter(x => {
-  //       return this.room.schedule[x.value - 1] === 1
-  //     })
-  //     return options
-  //   },
+  computed: {
+    room: function() {
+      return this.rooms[0]
+    },
+    startOptions: function() {
+      let filterdOptions = []
+      filterdOptions = timeOptions.filter(x => {
+        return this.room.schedule[x - 1] === 1
+      })
+      let options = {}
+      for (let i = 8; i <= 20; i++) {
+        options[i] = []
+      }
+      for (let i = 0; i < filterdOptions.length; i++) {
+        let num = filterdOptions[i]
+        options[parseInt(num / 6) + 8].push(num % 6)
+      }
+      return options
+    }
+  },
   //   endOptions: function() {
   //     let options = []
   //     if (this.start === null) {
@@ -134,8 +146,8 @@ export default {
   data: function() {
     return {
       orders: [],
-      schedule: schedule,
-      rooms: [{ name: '504' }],
+      // schedule: schedule,
+      rooms: [{ name: '504', schedule: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] }],
       selected: '',
       index: 0,
       array: ['A', 'B', 'C']
