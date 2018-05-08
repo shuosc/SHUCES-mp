@@ -17,10 +17,6 @@
           div 09/23 18:00-19:00
           div 
             | 提前结束
-    //- div.q-ml-md.q-mr-md
-      //- room-booking-card(v-for="(room,index) in rooms" :id="room.id" :room="room" :index=index :key="room.id" :date="date" @reservateSuccess="getRooms")
-    //- div(style="width:100vw;display:flex;overflow:scroll;" v-for="i in 10")
-      //- div(style="max-width:20vw;min-width:30px;") 511
     div(style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);border-radius:10px;margin:10px;")
       div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
         //- div(style="flex:1;height:2rem;")
@@ -34,20 +30,7 @@
           | {{formatteDateIndictor}}
         //- div(style="flex:1;height:2rem;")
           | 向后
-      div(style="font-weight:bold;display:flex;box-sizing: border-box;")
-        div.ces(style="flex:1;")
-          div.room(v-for="(room,index) in rooms",:key="room.name")
-            | {{room.name}}
-        div.time(style="flex:9;overflow-x:scroll;overflow-y:hidden;")
-          //- div.ces(style="position:absolute;left:0;top:0;width:30px'")
-            div.room(v-for="(room,index) in rooms",:key="room.name")
-              | {{room.name}}
-          div.time-pointer()
-          div.time-row(v-for="(room,index) in rooms",:key="room.name")
-            //- div.time-event(v-for="(event,evetnIndex) in room.events")
-            div.bg-blue.time-event(style="width:100px;left:0;top:0;height:50px;z-index:100;")
-            div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start" @click="onTimeCellClick(room,time)")
-              span  {{time.start}}
+      room-schedule(:rooms="rooms",:schedule="schedule")
     //- div(expand position="bottom" style="z-index:1000;")
       div.row.justify-around.full-width.bg-white.q-pb-md.q-pt-md.shadow-3
         div
@@ -75,10 +58,6 @@
   /* background-color: #7EB3EC; */
   /* border-bottom: 2px solid #6b93ad ; */
   /* background-image: linear-gradient(180deg, #85b7d8 0%, #c2e9fb 90%); */
-}
-.time {
-  background-color: rgb(132, 156, 172);
-  position: relative;
 }
 .toolbar div {
   display: flex;
@@ -112,91 +91,23 @@
   align-items: center;
   justify-content: center;
 }
-.room {
-  height: 50px;
-  /* background-color: #eee; */
-  /* border-bottom: 1px solid #eee; */
-  width: 100%;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  justify-content: center;
-  font-size: 12px;
-  /* color: #333; */
-}
-.time-row {
-  height: 50px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  /* background-color: #eee; */
-  border-bottom: 1px solid #fff;
-  display: block;
-  width: 650px;
-  position: relative;
-  /* flex-flow: row no-wrap; */
-  /* margin: auto; */
-  /* overflow: auto; */
-}
-.time-row:first-of-type {
-  border-top: 1px solid #fff;
-}
-.time-cell:first-of-type {
-  border-left: 1px solid #fff;
-}
-.time-cell {
-  display: inline-block;
-  width: 50px;
-  box-sizing: border-box;
-  border-right: 1px solid;
-  /* font-size: 15px; */
-  /* background-color: green; */
-  color: #fff;
-  height: 50px;
-  position: relative;
-  /* display: inline; */
-}
-.time-pointer {
-  position: absolute;
-  top: 0;
-  left: 120px;
-  width: 2px;
-  height: 500px;
-  background-color: blueviolet;
-}
-.time-cell span {
-  font-size: 12px;
-  font-weight: bold;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 200;
-}
-.time-cell:hover {
-  background-color: aqua !important;
-}
-.time-event {
-  position: absolute;
-}
-.time-event:hover {
-  background-color: aqua !important;
-}
+
 </style>
 
 <script>
 // import { date } from 'quasar'
 // const date = {}
 // const { addToDate, formatDate } = date
-import { schedule } from '@/utils'
-// import RoomBookingCard from '@/components/RoomBookingCard'
+// import { schedule } from '@/utils'
+import RoomSchedule from '@/components/RoomSchedule'
 export default {
   name: 'PageIndex',
   components: {
-    // RoomBookingCard
+    RoomSchedule
   },
   data() {
     return {
       opened: false,
-      schedule: schedule,
       day: 1,
       rooms: [
         {
@@ -229,11 +140,11 @@ export default {
     }
   },
   created: function() {
-    // let now = new Date()
-    // this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    let now = new Date()
+    this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
   },
   mounted: function() {
-    // this.getRooms()
+    this.getRooms()
   },
   // computed: {
   //   formatteDateIndictor: function() {
@@ -261,7 +172,7 @@ export default {
     getRooms() {
       let timestamp = this.date.valueOf() / 1000
       this.$http
-        .get('/api/rooms', {
+        .get('/rooms', {
           params: {
             timestamp: timestamp,
             group: 'ces'

@@ -1,6 +1,7 @@
 <script>
 import './weui.css'
 import './colors.css'
+import './shadows.css'
 // import './colors.styl'
 export default {
   mpType: 'app',
@@ -14,9 +15,7 @@ export default {
 }
 </script>
 
-<style >
-/* // @import './varibles.styl' */
-/* // @import './colors.styl' */
+<style>
 .container {
   height: 100%;
   display: flex;

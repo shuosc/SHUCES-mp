@@ -23,5 +23,12 @@ module.exports = [
       navigationBarTitleText: '文章列表',
       enablePullDownRefresh: true
     }
+  },
+  {
+    path: '/pages/login/index',
+    name: 'login',
+    config: {
+      navigationBarTitleText: '登录'
+    }
   }
 ]

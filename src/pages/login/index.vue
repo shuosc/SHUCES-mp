@@ -3,7 +3,7 @@
     .content
       h1(square='', flat='', style='position:absolute;top:-5rem;width:100%;')
         div(style='text-align:center;')
-          span(style='font-weight:bold;font-size:1.5rem;color:white;text-shadow:blue 0 1px 0;') SHUhelper 小程序
+          span(style='font-weight:bold;font-size:1.5rem;color:white;text-shadow:blue 0 1px 0;') 上海大学计算机学院
           br
           small(style='color:white;text-shadow:green 0 1px 0;')
             span(style='color:red;') ♥
@@ -18,8 +18,8 @@
           | 确认绑定
       div(square='', flat='', style='position:absolute;bottom:-4rem;width:100%;')
         div(style='text-align:center;color:white;font-size:0.8rem;')
-          small 上海大学开源社区
-          br
+          //- small 上海大学开源社区
+          //- br
           small 2018 SHU Open Source Community
 </template>
 
@@ -74,7 +74,7 @@ export default {
         .then(() => {
           this.loginLoading = false
           wx.redirectTo({
-            url: '/pages/index/main?refresh=true'
+            url: '/pages/index/index?refresh=true'
           })
         })
         .catch(() => {

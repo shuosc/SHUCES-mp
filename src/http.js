@@ -40,7 +40,11 @@ http.interceptors.response.use(
     console.log(err)
     if (err.response.status === 401) {
       console.log(err.response)
-      store.dispatch('login')
+      // store.dispatch('login')
+      wx.navigateTo({
+        url:'/pages/login/index'
+      })
+      // wx.naviga
     }
     // Do something with response error
     // return Promise.resolve("ssss")

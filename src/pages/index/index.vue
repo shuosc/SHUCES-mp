@@ -3,7 +3,7 @@
     <div class="page__bd">
       <div class="weui-grids">
         <block v-for="(item,index) in grids" :key="index">
-          <navigator url="/pages/room-booking/main" class="weui-grid" hover-class="weui-grid_active">
+          <navigator url="/pages/room-booking/index" class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" :src="item.src" />
             <div class="weui-grid__label">{{item.name}}</div>
           </navigator>
@@ -22,7 +22,7 @@ export default {
       userInfo: {},
       grids: [
         {
-          src: '/pages/room-booking/new',
+          src: '/pages/room-booking/index',
           name: '房间预约'
         }
       ]
