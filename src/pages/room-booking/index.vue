@@ -109,32 +109,7 @@ export default {
     return {
       opened: false,
       day: 1,
-      rooms: [
-        {
-          name: '402'
-        },
-        {
-          name: '504'
-        },
-        {
-          name: '506'
-        },
-        {
-          name: '801'
-        },
-        {
-          name: '1001'
-        },
-        {
-          name: '1004'
-        },
-        {
-          name: '1006'
-        },
-        {
-          name: '1125'
-        }
-      ],
+      rooms: [],
       date: null,
       restrict: 4
     }
@@ -173,15 +148,15 @@ export default {
     getRooms() {
       let timestamp = this.date.valueOf() / 1000
       this.$http
-        .get('/rooms', {
+        .get('/room-booking/rooms', {
           params: {
             timestamp: timestamp,
             group: 'ces'
           }
         })
         .then(res => {
-          this.rooms = res.data.rooms
-          this.restrict = res.data.restrict
+          this.rooms = res.rooms
+          this.restrict = res.restrict
         })
     }
     // onPreviousClick() {

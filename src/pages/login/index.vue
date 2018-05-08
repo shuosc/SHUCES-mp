@@ -74,7 +74,7 @@ export default {
         .then(() => {
           this.loginLoading = false
           wx.redirectTo({
-            url: '/pages/index/index?refresh=true'
+            url: '/pages/index/main?refresh=true'
           })
         })
         .catch(() => {

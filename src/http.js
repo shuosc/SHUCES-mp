@@ -42,7 +42,7 @@ http.interceptors.response.use(
       console.log(err.response)
       // store.dispatch('login')
       wx.navigateTo({
-        url:'/pages/login/index'
+        url:'/pages/login/main'
       })
       // wx.naviga
     }
