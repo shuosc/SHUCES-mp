@@ -102,6 +102,12 @@ export default {
     return {
       schedule: schedule
     }
+  },
+  methods: {
+    onTimeCellClick(room, time) {
+      console.log(room, time)
+      wx.navigateTo({ url: '/pages/room-booking/new/main' })
+    }
   }
 }
 </script>

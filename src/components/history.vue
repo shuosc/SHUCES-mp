@@ -1,23 +1,5 @@
 <template lang="pug">
   div
-    div.info.shadow-1
-    div.form.shadow-1
-      div(style="display:flex;")
-        div 教室 
-        div.ces(style="flex:4;text-align:center;") 504
-      div(style="display:flex;")
-        div 日期
-        div.ces(style="flex:4;text-align:center;") 2018-05-02
-      div(style="padding-top:20px;padding-bottom:20px;")
-        room-schedule(:rooms="rooms" :roomVisible="false")
-      div(style="display:flex;")
-        div 开始
-        div.ces(style="flex:4;text-align:center;") 2018-05-02
-      div(style="display:flex;")
-        div 结束
-        div.ces(style="flex:4;text-align:center;") 2018-05-02
-      button.shadow-1(type="success" style="margin:10px;")  确认预约
-
   //- q-page(style="margin-bottom:80px;")
     //- div.q-ml-md.q-mr-md
       q-card.q-mt-lg(v-for="order in orders" :key="order.id")
@@ -40,54 +22,27 @@
 </template>
 
 <style>
-.info {
-  height: 50px;
-  border-radius: 10px;
-  margin:10px;
-}
-.form {
-  margin: 10px;
-  border-radius: 10px;
-  padding-top: 20px;
-  padding-bottom: 10px;
-}
-.form > div {
-  border-bottom: 1px solid #eee;
-  padding-top: 10px;
-  /* padding-bottom: 10px; */
-}
-.form > div > div:first-child {
-  flex: 1;
-  padding-left: 10px;
-  padding-right: 10px;
-  /* font-weight: bold; */
-  font-size: 19px;
-  color: #001f3f;
-}
+
 </style>
 
 <script>
-import RoomSchedule from '@/components/RoomSchedule'
+// import { schedule } from '/utils'
 const schedule = []
 export default {
-  components: {
-    RoomSchedule
-  },
-  name: 'RoomBookingNew',
+  name: 'RoomBookingHistory',
   data: function() {
     return {
       orders: [],
-      schedule: schedule,
-      rooms: [{ name: '504' }]
+      schedule: schedule
     }
   },
   created() {
-    this.getHistory()
+    // this.getHistory()
   },
   methods: {
     getHistory() {
       this.$http
-        .get('/api/room-orders/?type=personal')
+        .get('/api/room-booking/?type=personal')
         .then(resp => {
           this.orders = resp.data.orders
         })
@@ -111,7 +66,7 @@ export default {
         })
     },
     postDeleteForm(id) {
-      this.$http.delete(`/api/room-orders/${id}`).then(resp => {
+      this.$http.delete(`/api/room-booking/${id}`).then(resp => {
         this.$q.notify('取消成功')
         this.getHistory()
       })

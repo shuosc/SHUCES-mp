@@ -3,13 +3,13 @@ import Fly from 'flyio/dist/npm/wx'
 // var Fly = require('flyio/dist/npm/wx')
 import store from './store/index'
 var http = new Fly()
-// console.log('process', __SERVER)
-// if (__SERVER === 'local') {
-//   http.config.baseURL = 'http://localhost:5000'
-// } else {
-//   http.config.baseURL = 'https://api.shuhelper.cn/v1'
-// }
-http.config.baseURL = 'https://api.shuhelper.cn/v1'
+console.log('process', __SERVER)
+if (__SERVER === 'local') {
+  http.config.baseURL = 'http://localhost:5000'
+} else {
+  http.config.baseURL = 'https://api.shuhelper.cn/v1'
+}
+// http.config.baseURL = 'https://api.shuhelper.cn/v1'
 // function redirectToLogin(authID) {
 //   wx.redirectTo({
 //     url: `/pages/login/main?authID=${authID}`
@@ -47,7 +47,7 @@ http.interceptors.response.use(
       // wx.naviga
     }
     // Do something with response error
-    // return Promise.resolve("ssss")
+    return Promise.resolve(err)
   }
 )
 

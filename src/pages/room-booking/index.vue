@@ -145,6 +145,7 @@ export default {
   },
   mounted: function() {
     this.getRooms()
+    console.log('get rooms')
   },
   // computed: {
   //   formatteDateIndictor: function() {

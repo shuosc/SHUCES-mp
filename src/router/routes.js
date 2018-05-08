@@ -4,7 +4,7 @@ module.exports = [
     path: '/pages/index/index',
     name: 'home',
     config: {
-      navigationBarTitleText: '文章列表',
+      navigationBarTitleText: '上海大学计算机学院',
       enablePullDownRefresh: true
     }
   },
@@ -12,7 +12,7 @@ module.exports = [
     path: '/pages/room-booking/index',
     name: 'roomBookingStatus',
     config: {
-      navigationBarTitleText: '文章列表',
+      navigationBarTitleText: '教室预约状态',
       enablePullDownRefresh: true
     }
   },
@@ -20,8 +20,7 @@ module.exports = [
     path: '/pages/room-booking/new',
     name: 'RoomBookingNew',
     config: {
-      navigationBarTitleText: '文章列表',
-      enablePullDownRefresh: true
+      navigationBarTitleText: '新建教室预约'
     }
   },
   {

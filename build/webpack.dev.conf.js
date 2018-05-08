@@ -16,7 +16,8 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 // Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 //   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 // })
-
+const server = process.argv[2]
+console.log(server, 'server')
 module.exports = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -36,6 +37,10 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
+      'process.env': config.dev.env,
+      __SERVER: '"' + server + '"'
+    }),
+    new webpack.DefinePlugin({
       'process.env': config.dev.env
     }),
 
@@ -54,13 +59,9 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: function (module, count) {
+      minChunks: function(module, count) {
         // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf('node_modules') >= 0
-        ) || count > 1
+        return (module.resource && /\.js$/.test(module.resource) && module.resource.indexOf('node_modules') >= 0) || count > 1
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
