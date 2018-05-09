@@ -9,24 +9,31 @@
         div 日期
         div.ces(style="flex:4;text-align:center;") 2018-05-02
       div(style="padding-top:20px;padding-bottom:20px;")
-        room-schedule(:rooms="rooms" :roomVisible="false")
+        room-schedule(:rooms="[room]" :roomVisible="false")
       div(style="display:flex;")
         div 开始
         div.ces(style="flex:4;text-align:center;display:flex;") 
-          picker(style="flex:1;height:100%;text-align:right;" @change="bindPickerChange" :value="index" :range="array")
+          picker(style="flex:1;height:100%;text-align:right;" @change="startHourChange" :value="startHour" :range="startHourOptions")
             view(class="picker")
-              | {{array[index]}}
+              | {{startHourOptions[startHour]}}
           span(style="padding-left:10px;padding-right:10px;") :
-          picker(style="flex:1;height:100%;text-align:left;" @change="bindPickerChange" :value="index" :range="array")
+          picker(style="flex:1;height:100%;text-align:left;" @change="startMinuteChange" :value="startMinute" :range="startMinuteOptions")
             view(class="picker")
-              | {{array[index]}}
+              | {{startMinuteOptions[startMinute]}}
       div(style="display:flex;")
         div 结束
-        div.ces(style="flex:4;text-align:center;") 
-          picker(style="height:100%;" @change="bindPickerChange" :value="index" :range="array")
+        div.ces(style="flex:4;text-align:center;display:flex;") 
+          picker(style="flex:1;height:100%;text-align:right;" @change="endHourChange" :value="endHour" :range="endHourOptions")
             view(class="picker")
-              | {{array[index]}}
-      button.shadow-1(type="primary" style="margin:10px;")  确认预约
+              | {{endHourOptions[endHour]}}
+          span(style="padding-left:10px;padding-right:10px;") :
+          picker(style="flex:1;height:100%;text-align:left;" @change="endMinuteChange" :value="endMinute" :range="endMinuteOptions")
+            view(class="picker")
+              | {{endMinuteOptions[endMinute]}}
+      div(style="display:flex;")
+        div 电话
+        input.ces(style="flex:4;text-align:center;" placeholder="请输入电话") 
+      button.shadow-1(type="primary" style="margin:10px;" @click="onReservationClick")  确认预约
 
   //- q-page(style="margin-bottom:80px;")
     //- div.q-ml-md.q-mr-md
@@ -77,8 +84,21 @@
 </style>
 
 <script>
-const timeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+import { formatNumber } from '@/utils'
+const timeOptions = Array.from({ length: 120 }, (v, k) => k)
 import RoomSchedule from '@/components/RoomSchedule'
+const numToTime = function(nums) {
+  let options = {}
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i]
+    let index = parseInt(num / 6)
+    if (!options[index]) {
+      options[index] = []
+    }
+    options[index].push(formatNumber((num % 6) * 10))
+  }
+  return options
+}
 // const schedule = []
 export default {
   components: {
@@ -86,45 +106,65 @@ export default {
   },
   name: 'RoomBookingNew',
   computed: {
-    room: function() {
-      return this.rooms[0]
+    schedule: function() {
+      let schedule = Array.from({ length: 120 }, (v, k) => (k >= 8 * 6 - 1 ? 1 : 0))
+      return schedule
+    },
+    start: function() {
+      return (this.startHour * 60 + this.startMinute * 10) / 10
+    },
+    end: function() {
+      return (this.endHour * 60 + this.endMinute * 10) / 10
     },
     startOptions: function() {
       let filterdOptions = []
       filterdOptions = timeOptions.filter(x => {
-        return this.room.schedule[x - 1] === 1
+        return this.schedule[x - 1] === 1
       })
-      let options = {}
-      for (let i = 8; i <= 20; i++) {
-        options[i] = []
-      }
-      for (let i = 0; i < filterdOptions.length; i++) {
-        let num = filterdOptions[i]
-        options[parseInt(num / 6) + 8].push(num % 6)
-      }
+      let options = numToTime(filterdOptions)
+      console.log(options)
       return options
+    },
+    startHourOptions: function() {
+      return Object.keys(this.startOptions)
+    },
+    startMinuteOptions: function() {
+      if (this.startHour !== null) {
+        let hour = Object.keys(this.startOptions)[this.startHour]
+        // console.log('startMinuteOptions', this.startOptions[hour])
+        return this.startOptions[hour]
+      } else {
+        return []
+      }
+    },
+    endOptions: function() {
+      let options = []
+      if (this.start === null) {
+        return options
+      } else {
+        let filterdOptions = []
+        console.log('start', this.start)
+        filterdOptions = timeOptions.filter(x => {
+          return this.schedule[x - 1] === 1 && x > this.start
+        })
+        filterdOptions = filterdOptions.slice(0, 24)
+        let options = numToTime(filterdOptions)
+        console.log('end', options)
+        return options
+      }
+    },
+    endHourOptions: function() {
+      return Object.keys(this.endOptions)
+    },
+    endMinuteOptions: function() {
+      if (this.endHour !== null) {
+        let hour = Object.keys(this.endOptions)[this.endHour]
+        return this.endOptions[hour]
+      } else {
+        return []
+      }
     }
   },
-  //   endOptions: function() {
-  //     let options = []
-  //     if (this.start === null) {
-  //       return options
-  //     } else {
-  //       let start = this.start - 1
-  //       let i = this.start - 1
-  //       while (this.room.schedule[i]) {
-  //         options.push({
-  //           label: `第${i + 1}节（${schedule[i].end}）`,
-  //           value: i + 1
-  //         })
-  //         if (i - start + 1 >= 4) {
-  //           break
-  //         }
-  //         i += 1
-  //       }
-  //       return options
-  //     }
-  //   },
   //   roomSchedule: function() {
   //     let schedule = this.room.schedule.slice()
   //     if (this.start !== null && this.end !== null) {
@@ -147,17 +187,40 @@ export default {
     return {
       orders: [],
       // schedule: schedule,
-      rooms: [{ name: '504', schedule: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] }],
+      room: { name: '504' },
       selected: '',
       index: 0,
-      array: ['A', 'B', 'C']
+      array: ['A', 'B', 'C'],
+      startHour: 0,
+      startMinute: 0,
+      endHour: 0,
+      endMinute: 0,
+      date: null
     }
   },
   mounted() {
     this.getHistory()
     console.log('from new')
+    this.date = new Date()
   },
   methods: {
+    startHourChange(event) {
+      console.log(parseInt(event.target.value))
+      this.startHour = parseInt(event.target.value)
+      this.startMinute = 0
+    },
+    startMinuteChange(event) {
+      this.startMinute = parseInt(event.target.value)
+      this.endHour = 0
+      this.endMinute = 0
+    },
+    endHourChange(event) {
+      this.endHour = parseInt(event.target.value)
+      this.endMinute = 0
+    },
+    endMinuteChange(event) {
+      this.endMinute = parseInt(event.target.value)
+    },
     getHistory() {
       this.$http
         .get('/room-booking/orders/?type=personal')
@@ -188,6 +251,41 @@ export default {
         this.$q.notify('取消成功')
         this.getHistory()
       })
+    },
+    onReservationClick() {
+      // if (!this.start || !this.end) {
+      //   return
+      // }
+      wx.showModal({
+        title: '提示',
+        content: '确认预约吗',
+        success: res => {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            this.postReservationForm()
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
+    postReservationForm() {
+      this.$http
+        .post('/room-booking/orders', {
+          roomID: this.room.id,
+          start: this.start * 600,
+          end: this.end * 600,
+          date: this.date.valueOf() / 1000
+        })
+        .then(resp => {
+          console.log(resp)
+          // this.$emit('reservateSuccess')
+          // this.$q.notify('预约成功！')
+        })
+        .catch(err => {
+          console.log(err)
+          // this.$q.notify(err.response.data.msg)
+        })
     }
   }
 }
