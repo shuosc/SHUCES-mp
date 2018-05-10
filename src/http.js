@@ -6,8 +6,10 @@ var http = new Fly()
 console.log('process', __SERVER)
 if (__SERVER === 'local') {
   http.config.baseURL = 'http://localhost:5000'
+} else if (__SERVER === 'prod') {
+  http.config.baseURL = 'https//api.shuhelper.cn/v1'
 } else {
-  http.config.baseURL = 'https://api.shuhelper.cn/v1'
+  http.config.baseURL = 'http://api-dev.shuhelper.cn/v1'
 }
 // http.config.baseURL = 'https://api.shuhelper.cn/v1'
 // function redirectToLogin(authID) {
@@ -41,7 +43,7 @@ http.interceptors.response.use(
       console.log(err.response)
       // store.dispatch('login')
       wx.navigateTo({
-        url:'/pages/login/main'
+        url: '/pages/login/main'
       })
       // wx.naviga
     }
