@@ -37,7 +37,7 @@
   /* background-color: #eee; */
   border-bottom: 1px solid #fff;
   display: block;
-  width: 650px;
+  width: 780px;
   position: relative;
   /* flex-flow: row no-wrap; */
   /* margin: auto; */
@@ -82,6 +82,7 @@
 }
 .time-event {
   position: absolute;
+  top:1;
 }
 .time-event:hover {
   background-color: aqua !important;
@@ -109,7 +110,7 @@ export default {
       for (let room of this.rooms) {
         let roomOrders = []
         for (let order of room.orders) {
-          order.style = `width:${(order.end - order.start) / 60}px;left:${(order.start - 8 * 3600) / 60}px;top:0;height:50px;z-index:100;`
+          order.style = `width:${(order.end - order.start) / 60 - 1}px;left:${(order.start - 8 * 3600) / 60}px;height:48px;z-index:100;`
           roomOrders.push(order)
         }
         orders.push(roomOrders)

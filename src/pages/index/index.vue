@@ -22,7 +22,7 @@ export default {
       userInfo: {},
       grids: [
         {
-          src: '/pages/room-booking/index',
+          src: '/static/room.png',
           name: '房间预约'
         }
       ]

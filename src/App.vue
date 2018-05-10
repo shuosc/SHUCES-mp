@@ -2,6 +2,7 @@
 import './weui.css'
 import './colors.css'
 import './shadows.css'
+import './fonticon.css'
 // import './colors.styl'
 export default {
   // mpType: 'app',
