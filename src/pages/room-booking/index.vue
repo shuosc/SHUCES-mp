@@ -91,7 +91,6 @@
   align-items: center;
   justify-content: center;
 }
-
 </style>
 
 <script>
@@ -149,10 +148,8 @@ export default {
       let timestamp = this.date.valueOf() / 1000
       this.$http
         .get('/room-booking/rooms', {
-          params: {
-            timestamp: timestamp,
-            group: 'ces'
-          }
+          timestamp: timestamp,
+          group: 'ces'
         })
         .then(res => {
           this.rooms = res.rooms

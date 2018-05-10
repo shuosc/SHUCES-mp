@@ -30,19 +30,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "房间预约",
-					"pathName": "pages/room-booking/index",
+					"pathName": "pages/room-booking/main",
 					"query": ""
 				},
 				{
 					"id": 1,
 					"name": "房间预约新建",
 					"pathName": "pages/room-booking/new/main",
-					"query": ""
+					"query": "rid=e994e81e-53e7-486d-9feb-6138c7334333"
 				},
 				{
 					"id": 2,

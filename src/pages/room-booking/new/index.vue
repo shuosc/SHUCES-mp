@@ -4,7 +4,7 @@
     div.form.shadow-1
       div(style="display:flex;")
         div 教室 
-        div.ces(style="flex:4;text-align:center;") 504
+        div.ces(style="flex:4;text-align:center;") {{room.name}}
       div(style="display:flex;")
         div 日期
         div.ces(style="flex:4;text-align:center;") 2018-05-02
@@ -13,23 +13,23 @@
       div(style="display:flex;")
         div 开始
         div.ces(style="flex:4;text-align:center;display:flex;") 
-          picker(style="flex:1;height:100%;text-align:right;" @change="startHourChange" :value="startHour" :range="startHourOptions")
+          picker(style="flex:1;height:100%;text-align:right;" @change="startHourChange" :value="startHourIndex" :range="startHourOptions")
             view(class="picker")
-              | {{startHourOptions[startHour]}}
+              | {{startHourOptions[startHourIndex]}}
           span(style="padding-left:10px;padding-right:10px;") :
-          picker(style="flex:1;height:100%;text-align:left;" @change="startMinuteChange" :value="startMinute" :range="startMinuteOptions")
+          picker(style="flex:1;height:100%;text-align:left;" @change="startMinuteChange" :value="startMinuteIndex" :range="startMinuteOptions")
             view(class="picker")
-              | {{startMinuteOptions[startMinute]}}
+              | {{startMinuteOptions[startMinuteIndex]}}
       div(style="display:flex;")
         div 结束
         div.ces(style="flex:4;text-align:center;display:flex;") 
-          picker(style="flex:1;height:100%;text-align:right;" @change="endHourChange" :value="endHour" :range="endHourOptions")
+          picker(style="flex:1;height:100%;text-align:right;" @change="endHourChange" :value="endHourIndex" :range="endHourOptions")
             view(class="picker")
-              | {{endHourOptions[endHour]}}
+              | {{endHourOptions[endHourIndex]}}
           span(style="padding-left:10px;padding-right:10px;") :
-          picker(style="flex:1;height:100%;text-align:left;" @change="endMinuteChange" :value="endMinute" :range="endMinuteOptions")
+          picker(style="flex:1;height:100%;text-align:left;" @change="endMinuteChange" :value="endMinuteIndex" :range="endMinuteOptions")
             view(class="picker")
-              | {{endMinuteOptions[endMinute]}}
+              | {{endMinuteOptions[endMinuteIndex]}}
       div(style="display:flex;")
         div 电话
         input.ces(style="flex:4;text-align:center;" placeholder="请输入电话") 
@@ -107,30 +107,41 @@ export default {
   name: 'RoomBookingNew',
   computed: {
     schedule: function() {
-      let schedule = Array.from({ length: 120 }, (v, k) => (k >= 8 * 6 - 1 ? 1 : 0))
+      let schedule = Array.from({ length: 120 }, (v, k) => (k >= 8 * 6 ? 1 : 0))
+      console.log('schedule', schedule)
+      for (let i = 0; i < schedule.length; i++) {
+        for (let order of this.room.orders) {
+          if (i >= order.start / 600 && i < order.end / 600) {
+            schedule[i] = 0
+          }
+        }
+      }
+      console.log('schedule', schedule)
       return schedule
     },
     start: function() {
-      return (this.startHour * 60 + this.startMinute * 10) / 10
+      let hour = Object.keys(this.startOptions)[this.startHourIndex]
+      let minute = parseInt(this.startOptions[hour][this.startMinuteIndex])
+      return (hour * 60 + minute) / 10
     },
     end: function() {
-      return (this.endHour * 60 + this.endMinute * 10) / 10
+      let hour = Object.keys(this.endOptions)[this.endHourIndex]
+      let minute = parseInt(this.endOptions[hour][this.endMinuteIndex])
+      return (hour * 60 + minute) / 10
     },
     startOptions: function() {
       let filterdOptions = []
-      filterdOptions = timeOptions.filter(x => {
-        return this.schedule[x - 1] === 1
-      })
+      filterdOptions = this.roomSchedule
       let options = numToTime(filterdOptions)
-      console.log(options)
+      console.log('start', options)
       return options
     },
     startHourOptions: function() {
       return Object.keys(this.startOptions)
     },
     startMinuteOptions: function() {
-      if (this.startHour !== null) {
-        let hour = Object.keys(this.startOptions)[this.startHour]
+      if (this.startHourIndex !== null) {
+        let hour = Object.keys(this.startOptions)[this.startHourIndex]
         // console.log('startMinuteOptions', this.startOptions[hour])
         return this.startOptions[hour]
       } else {
@@ -139,98 +150,101 @@ export default {
     },
     endOptions: function() {
       let options = []
-      if (this.start === null) {
-        return options
-      } else {
-        let filterdOptions = []
-        console.log('start', this.start)
-        filterdOptions = timeOptions.filter(x => {
-          return this.schedule[x - 1] === 1 && x > this.start
-        })
-        filterdOptions = filterdOptions.slice(0, 24)
-        let options = numToTime(filterdOptions)
-        console.log('end', options)
-        return options
+      let i = this.start
+      while (this.schedule[i]) {
+        options.push(i)
+        i = i + 1
       }
+      options = options.slice(0, 24)
+      return numToTime(options)
     },
     endHourOptions: function() {
       return Object.keys(this.endOptions)
     },
     endMinuteOptions: function() {
-      if (this.endHour !== null) {
-        let hour = Object.keys(this.endOptions)[this.endHour]
+      if (this.endHourIndex !== null) {
+        let hour = Object.keys(this.endOptions)[this.endHourIndex]
         return this.endOptions[hour]
       } else {
         return []
       }
+    },
+    roomSchedule: function() {
+      let filterdOptions = timeOptions.filter(x => {
+        return this.schedule[x] === 1
+      })
+      console.log(filterdOptions)
+      return filterdOptions
     }
+    // spareCount: function() {
+    //   return this.room.schedule.reduce((total, num) => {
+    //     return total + num
+    //   })
+    // }
   },
-  //   roomSchedule: function() {
-  //     let schedule = this.room.schedule.slice()
-  //     if (this.start !== null && this.end !== null) {
-  //       for (let i = this.start - 1; i < this.end; i++) {
-  //         if (schedule[i] === 1) {
-  //           schedule[i] = -1
-  //         }
-  //       }
-  //     }
-  //     // console.log(schedule)
-  //     return schedule
-  //   },
-  //   spareCount: function() {
-  //     return this.room.schedule.reduce((total, num) => {
-  //       return total + num
-  //     })
-  //   }
-  // },
   data: function() {
     return {
       orders: [],
       // schedule: schedule,
-      room: { name: '504' },
+      room: { name: '504', orders: [] },
       selected: '',
       index: 0,
       array: ['A', 'B', 'C'],
-      startHour: 0,
-      startMinute: 0,
-      endHour: 0,
-      endMinute: 0,
+      startHourIndex: 0,
+      startMinuteIndex: 0,
+      endHourIndex: 0,
+      endMinuteIndex: 0,
       date: null
     }
   },
   mounted() {
-    this.getHistory()
+    // this.getHistory()
     console.log('from new')
-    this.date = new Date()
+    let now = new Date()
+    this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    let rid = this.$root.$mp.query.rid
+    this.getRoom(rid)
   },
   methods: {
+    getRoom(roomID) {
+      let timestamp = parseInt(this.date.valueOf() / 1000)
+      this.$http
+        .get(`/room-booking/rooms/${roomID}`, {
+          timestamp: timestamp,
+          group: 'ces'
+        })
+        .then(res => {
+          this.room = res.room
+          this.restrict = res.restrict
+        })
+    },
     startHourChange(event) {
       console.log(parseInt(event.target.value))
-      this.startHour = parseInt(event.target.value)
-      this.startMinute = 0
+      this.startHourIndex = parseInt(event.target.value)
+      this.startMinuteIndex = 0
     },
     startMinuteChange(event) {
-      this.startMinute = parseInt(event.target.value)
-      this.endHour = 0
-      this.endMinute = 0
+      this.startMinuteIndex = parseInt(event.target.value)
+      this.endHourIndex = 0
+      this.endMinuteIndex = 0
     },
     endHourChange(event) {
-      this.endHour = parseInt(event.target.value)
-      this.endMinute = 0
+      this.endHourIndex = parseInt(event.target.value)
+      this.endMinuteIndex = 0
     },
     endMinuteChange(event) {
-      this.endMinute = parseInt(event.target.value)
+      this.endMinuteIndex = parseInt(event.target.value)
     },
-    getHistory() {
-      this.$http
-        .get('/room-booking/orders/?type=personal')
-        .then(resp => {
-          this.orders = resp.data.orders
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
+    // getHistory() {
+    //   this.$http
+    //     .get('/room-booking/orders/?type=personal')
+    //     .then(resp => {
+    //       this.orders = resp.data.orders
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // },
     onDeleteClick(id) {
       this.$q
         .dialog({
@@ -253,9 +267,13 @@ export default {
       })
     },
     onReservationClick() {
-      // if (!this.start || !this.end) {
-      //   return
-      // }
+      if (this.end - this.start <= 2) {
+        wx.showToast({
+          title: '预约时间过短',
+          icon: 'none'
+        })
+        return
+      }
       wx.showModal({
         title: '提示',
         content: '确认预约吗',
@@ -271,19 +289,32 @@ export default {
     },
     postReservationForm() {
       this.$http
-        .post('/room-booking/orders', {
+        .post('/room-booking/orders/', {
           roomID: this.room.id,
           start: this.start * 600,
           end: this.end * 600,
-          date: this.date.valueOf() / 1000
+          date: parseInt(this.date.valueOf() / 1000)
         })
         .then(resp => {
           console.log(resp)
+          wx.showToast({
+            title: '预约成功！',
+            icon: 'success',
+            duration: 2000
+          })
+          wx.navigateTo({
+            url: '../result/main'
+          })
           // this.$emit('reservateSuccess')
           // this.$q.notify('预约成功！')
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response.data.msg)
+          wx.showToast({
+            title: err.response.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
           // this.$q.notify(err.response.data.msg)
         })
     }

@@ -17,8 +17,74 @@ export function formatTime(date) {
 
   return `${t1} ${t2}`
 }
-
 export const schedule = [
+  {
+    no: 1,
+    start: '08:00',
+    end: '09:00'
+  },
+  {
+    no: 2,
+    start: '09:00',
+    end: '10:00'
+  },
+  {
+    no: 3,
+    start: '10:00',
+    end: '11:00'
+  },
+  {
+    no: 4,
+    start: '11:00',
+    end: '12:00'
+  },
+  {
+    no: 5,
+    start: '12:00',
+    end: '13:00'
+  },
+  {
+    no: 6,
+    start: '13:00',
+    end: '14:00'
+  },
+  {
+    no: 7,
+    start: '14:00',
+    end: '15:00'
+  },
+  {
+    no: 8,
+    start: '15:00',
+    end: '16:00'
+  },
+  {
+    no: 9,
+    start: '16:00',
+    end: '17:00'
+  },
+  {
+    no: 10,
+    start: '17:00',
+    end: '18:00'
+  },
+  {
+    no: 11,
+    start: '18:00',
+    end: '19:00'
+  },
+  {
+    no: 12,
+    start: '19:00',
+    end: '20:00'
+  },
+  {
+    no: 13,
+    start: '20:00',
+    end: '21:00'
+  }
+]
+export const schoolSchedule = [
   {
     no: 1,
     start: '08:00',

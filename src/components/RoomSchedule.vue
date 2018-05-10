@@ -7,9 +7,9 @@
       //- div.ces(style="position:absolute;left:0;top:0;width:30px'")
       //- div.room(v-for="(room,index) in rooms",:key="room.name")
           | {{room.name}}
-      div.time-pointer()
+      //- div.time-pointer()
       div.time-row(v-for="(room,index) in rooms",:key="room.name")
-        div.bg-blue.time-event(style="width:100px;left:0;top:0;height:50px;z-index:100;")
+        div.bg-blue.time-event(:style="order.style" v-for="(order,orderIndex) in orders[index]")
         div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start" @click="onTimeCellClick(room,time)")
           span  {{time.start}}
 </template>
@@ -51,7 +51,7 @@
 }
 .time-cell {
   display: inline-block;
-  width: 50px;
+  width: 60px;
   box-sizing: border-box;
   border-right: 1px solid;
   /* font-size: 15px; */
@@ -103,10 +103,24 @@ export default {
       schedule: schedule
     }
   },
+  computed: {
+    orders: function() {
+      let orders = []
+      for (let room of this.rooms) {
+        let roomOrders = []
+        for (let order of room.orders) {
+          order.style = `width:${(order.end - order.start) / 60}px;left:${(order.start - 8 * 3600) / 60}px;top:0;height:50px;z-index:100;`
+          roomOrders.push(order)
+        }
+        orders.push(roomOrders)
+      }
+      return orders
+    }
+  },
   methods: {
     onTimeCellClick(room, time) {
       console.log(room, time)
-      wx.navigateTo({ url: '/pages/room-booking/new/main' })
+      wx.navigateTo({ url: `/pages/room-booking/new/main?rid=${room.id}` })
     }
   }
 }

@@ -37,7 +37,6 @@ http.interceptors.response.use(
     return response.data
   },
   err => {
-    console.log(err)
     if (err.response.status === 401) {
       console.log(err.response)
       // store.dispatch('login')
@@ -47,7 +46,7 @@ http.interceptors.response.use(
       // wx.naviga
     }
     // Do something with response error
-    return Promise.resolve(err)
+    return err
   }
 )
 
