@@ -4,19 +4,20 @@
       //- div(style="flex:1;") 帮助提示
       div(style="flex:1;")
       div(style="flex:1;text-align:right;") 帮助提示
-    div.bg-white.ces(style="white-space:nowrap;z-index:100;font-weight:bold;font-size:15px;border-radius:10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);")
-      div(style="margin-left:10px;padding-left:10px;border-left:4px solid blue;") 我的预约
+    div.booking-history.bg-white.ces
+      div.booking-header(style="") 我的预约
       //- div
         | 504 09/23 18:00-19:00 已进行30分钟
       //- div
         | 504 09/23 18:00-19:00 还有三十分钟开始
       div(style="overflow-x:scroll;padding:10px;")
-        div(style="font-size:10px;display:inline-block;height:80px;width:100px;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);margin-left:10px;" v-for="i in 3")
+        div.order-card(v-for="order in orders")
           div
-            | 504
-          div 09/23 18:00-19:00
+            | {{order.room}}
+          div {{order.date}} 
+          div {{order.startTime}}-{{order.endTime}}
           div 
-            | 提前结束
+            | {{order.status}}
     div(style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);border-radius:10px;margin:10px;")
       div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
         //- div(style="flex:1;height:2rem;")
@@ -42,6 +43,30 @@
 </template>
 
 <style scoped >
+.booking-header {
+  margin-left: 10px;
+  padding-left: 10px;
+  margin-top: 10px;
+  border-left: 4px solid blue;
+}
+.booking-history {
+  white-space: nowrap;
+  margin: 10px;
+  z-index: 100;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.order-card {
+  font-size: 13px;
+  display: inline-block;
+  text-align:center;
+  height: 80px;
+  width: 100px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-left: 10px;
+}
 .toolbar {
   width: 100vw;
   position: fixed;
@@ -94,6 +119,7 @@
 </style>
 
 <script>
+import { formatNumber } from '@/utils'
 // import { date } from 'quasar'
 // const date = {}
 // const { addToDate, formatDate } = date
@@ -110,7 +136,8 @@ export default {
       day: 1,
       rooms: [],
       date: null,
-      restrict: 4
+      restrict: 4,
+      orders: []
     }
   },
   created: function() {
@@ -119,6 +146,7 @@ export default {
   },
   mounted: function() {
     this.getRooms()
+    this.getHistory()
     console.log('get rooms')
   },
   // computed: {
@@ -143,6 +171,24 @@ export default {
       wx.navigateTo({
         url: 'new'
       })
+    },
+    getHistory() {
+      this.$http
+        .get('/room-booking/orders/?type=personal')
+        .then(resp => {
+          this.orders = []
+          for (let order of resp.orders) {
+            let date = new Date(order.date * 1000)
+            order.date = `${date.getMonth() + 1}/${date.getDate()}`
+            order.startTime = `${parseInt(order.start / 3600)}:${formatNumber((order.end % 3600) / 60)}`
+            order.endTime = `${parseInt(order.end / 3600)}:${formatNumber((order.end % 3600) / 60)}`
+            this.orders.push(order)
+            console.log(order)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getRooms() {
       let timestamp = this.date.valueOf() / 1000

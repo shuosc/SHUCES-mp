@@ -110,7 +110,7 @@ export default {
       for (let room of this.rooms) {
         let roomOrders = []
         for (let order of room.orders) {
-          order.style = `width:${(order.end - order.start) / 60 - 1}px;left:${(order.start - 8 * 3600) / 60}px;height:48px;z-index:100;`
+          order.style = `width:${(order.end - order.start) / 60 - 1}px;left:${(order.start - 8 * 3600) / 60}px;height:49px;z-index:100;`
           roomOrders.push(order)
         }
         orders.push(roomOrders)

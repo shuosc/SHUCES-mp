@@ -27,17 +27,18 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  var px2rpxLoader = {
-    loader: 'px2rpx-loader',
-    options: {
-      baseDpr: 1,
-      rpxUnit: 0.5
-    }
-  }
+  // var px2rpxLoader = {
+  //   loader: 'px2rpx-loader',
+  //   options: {
+  //     baseDpr: 1,
+  //     rpxUnit: 0.5
+  //   }
+  // }
 
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    var loaders = [cssLoader, px2rpxLoader, postcssLoader]
+    // var loaders = [cssLoader, px2rpxLoader, postcssLoader]
+    var loaders = [cssLoader, postcssLoader]
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
