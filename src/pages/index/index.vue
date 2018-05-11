@@ -1,15 +1,41 @@
 <template>
   <div class="page">
+    <div class = "swiper">
+      <swiper indicator-dots='true' autoplay="true" interval="3000">
+        <swiper-item><image src="/static/images/1.jpg"/></swiper-item>
+        <swiper-item><image src="/static/images/2.jpg"/></swiper-item>
+        <swiper-item><image src="/static/images/3.jpg"/></swiper-item>
+        <swiper-item><image src="/static/images/4.jpg"/></swiper-item>
+        <swiper-item><image src="/static/images/5.jpg"/></swiper-item>
+        <swiper-item><image src="/static/images/6.jpg"/></swiper-item>
+      </swiper>
+    </div>
     <div class="page__bd">
       <div class="weui-grids">
         <block v-for="(item,index) in grids" :key="index">
-          <navigator url="/pages/room-booking/main" class="weui-grid" hover-class="weui-grid_active">
+          <navigator :url='item.url' class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" :src="item.src" />
             <div class="weui-grid__label">{{item.name}}</div>
           </navigator>
         </block>
       </div>
     </div>
+    <div class = "author">
+      <div class = "line"></div>
+      <p>2018 上海大学开源社区</p>
+    </div>
+    <!--<div class = "lable">
+       <div class = "lable-img-row">
+          <image src = "/static/developing.png"></image>
+          <image src = "/static/developing.png"></image>
+          <image src = "/static/developing.png"></image>
+      </div>
+      <div class = "lable-name-row">
+        <div class = "l-n-left">label</div>
+        <div class = "l-n-midd">labe2</div>
+        <div class = "l-n-right">labe3</div>
+      </div> 
+    </div>-->
   </div>
 </template>
 
@@ -22,8 +48,34 @@ export default {
       userInfo: {},
       grids: [
         {
+          src: '/static/remarks.jpg',
+          name: '院长寄语',
+          url: '/pages/remarks/main'
+        },
+        {
           src: '/static/room.png',
-          name: '房间预约'
+          name: '房间预约',
+          url: '/pages/room-booking/main'
+        },
+        {
+          src: '/static/developing.png',
+          name: '敬请期待',
+          url: ''
+        },
+        {
+          src: '/static/developing.png',
+          name: '敬请期待',
+          url: ''
+        },
+        {
+          src: '/static/developing.png',
+          name: '敬请期待',
+          url: ''
+        },
+        {
+          src: '/static/developing.png',
+          name: '敬请期待',
+          url: ''
         }
       ]
     }
@@ -63,6 +115,72 @@ export default {
 </script>
 
 <style scoped>
+swiper image{
+    width:100%;
+    height:350rpx
+}
+/* .lable-img-row{
+  display: flex;
+  flex-direction: row;
+}
+.lable-name-row{
+  display: flex;
+  flex-direction: row;
+  margin-top:15rpx;
+}
+.lable-img-row image{
+  width:30%;
+  height:50rpx;
+  margin:auto;
+}
+.l-n-left{
+  margin-left:5%;
+  width:30%;
+}
+.l-n-midd{
+  width:30%;
+
+}
+.l-n-right{
+  width:30%;
+  margin-right:5%;
+}
+.lable-name-row{
+    text-align: center;
+} */
+.lable{
+  display: flex;
+  flex-direction: column;
+  margin-top:50rpx;
+  margin-bottom:0;
+  margin-left:5%;
+  margin-right:5%;
+  width:50%;
+  height:70rpx;
+  border-top: 1px solid #ccc;
+  margin: auto;
+  /* 设置所有元素居中 */
+}
+.lable-img{
+  width:20%;
+  height:50rpx;
+}
+.author{
+  margin-bottom: 0rpx;
+  text-align:center;
+  font-size:25rpx;
+}
+.line{
+  margin: auto;
+  width: 40%;
+  height: 2px;
+  background: #aaa;
+}
+.page__bd{
+  margin-top:50rpx;
+  margin-bottom:330rpx;
+}
+
 .userinfo {
   display: flex;
   flex-direction: column;
