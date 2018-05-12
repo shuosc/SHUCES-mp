@@ -3,13 +3,13 @@ import Fly from 'flyio/dist/npm/wx'
 // var Fly = require('flyio/dist/npm/wx')
 import store from './store/index'
 var http = new Fly()
-console.log('process', __SERVER)
+// console.log('process', __SERVER)
 if (__SERVER === 'local') {
   http.config.baseURL = 'http://localhost:5000'
-} else if (__SERVER === 'prod') {
-  http.config.baseURL = 'https//api.shuhelper.cn/v1'
-} else {
+} else if (__SERVER === 'dev') {
   http.config.baseURL = 'http://api-dev.shuhelper.cn/v1'
+} else {
+  http.config.baseURL = 'https://api.shuhelper.cn/v1'
 }
 // http.config.baseURL = 'https://api.shuhelper.cn/v1'
 // function redirectToLogin(authID) {
@@ -32,6 +32,8 @@ if (__SERVER === 'local') {
 //     }
 //   })
 // }
+// var needAuth = false
+var loading = false
 http.interceptors.response.use(
   response => {
     // Do something with response data .
@@ -39,11 +41,17 @@ http.interceptors.response.use(
     return response.data
   },
   err => {
-    if (err.response.status === 401) {
-      console.log(err.response)
+    // console.log(store.state.user)
+    if (err.response.status === 401 && !loading) {
+      // console.log(err.response)
       // store.dispatch('login')
+      // store.commite('needAuth')
+      this.loading = true
       wx.navigateTo({
-        url: '/pages/login/main'
+        url: '/pages/login/main',
+        success: () => {
+          loading = false
+        }
       })
       // wx.naviga
     }

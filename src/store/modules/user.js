@@ -9,7 +9,8 @@ const state = {
   username: '',
   nickname: '',
   token: '',
-  avatarURL: 'https://static.shuhelper.cn/avatar_default.jpg'
+  avatarURL: 'https://static.shuhelper.cn/avatar_default.jpg',
+  needAuth: false
 }
 
 // getters
@@ -44,6 +45,7 @@ const actions = {
         payload.password,
         payload => {
           commit('updateUserInfo', payload)
+          commit('authSuccess')
           resolve()
         },
         () => {
@@ -61,6 +63,12 @@ const actions = {
 
 // mutations
 const mutations = {
+  authSuccess(state) {
+    state.needAuth = false
+  },
+  needAuth(state) {
+    state.needAuth = true
+  },
   updateAccountInfo(state, payload) {
     state.userID = payload.userID
     state.password = payload.password

@@ -10,7 +10,7 @@
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
 	"appid": "wx3b9324480ab9800d",
-	"projectname": "shu",
+	"projectname": "shu_ces_app",
 	"libVersion": "2.0.0",
 	"condition": {
 		"search": {

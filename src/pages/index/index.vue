@@ -17,10 +17,17 @@
         </block>
       </div>
     </div>
-    <div class="author">
+    <!-- <div class="author">
       <div class="line"></div>
       <p>2018 上海大学计算机学院</p>
       <p>上海大学开源社区提供技术支持</p>
+    </div> -->
+     <div class="weui-footer weui-footer_fixed-bottom">
+      <!-- <div class="weui-footer__links">
+        <navigator url="" class="weui-footer__link">WeUI首页</navigator>
+      </div> -->
+      <div class="weui-footer__text">上海大学开源社区提供技术支持</div>      
+      <div class="weui-footer__text">Copyright © 20018 上海大学计算机学院</div>
     </div>
     <!--<div class = "lable">
        <div class = "lable-img-row">

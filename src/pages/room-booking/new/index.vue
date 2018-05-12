@@ -1,13 +1,14 @@
 <template lang="pug">
   div
     div.info.shadow-1
+      | 每人每天多有四小时的预约时间。
     div.form.shadow-1
       div(style="display:flex;")
         div 教室 
         div.ces(style="flex:4;text-align:center;") {{room.name}}
       div(style="display:flex;")
         div 日期
-        div.ces(style="flex:4;text-align:center;") 2018-05-02
+        div.ces(style="flex:4;text-align:center;") {{dateString}}
       div(style="padding-top:20px;padding-bottom:20px;")
         room-schedule(:rooms="[room]" :roomVisible="false")
       div(style="display:flex;")
@@ -31,8 +32,11 @@
             view(class="picker")
               | {{endMinuteOptions[endMinuteIndex]}}
       div(style="display:flex;")
+        div 导师
+        input.ces(style="flex:4;text-align:center;" v-model="teacher" placeholder="请输入导师姓名") 
+      div(style="display:flex;")
         div 电话
-        input.ces(style="flex:4;text-align:center;" placeholder="请输入电话") 
+        input.ces(style="flex:4;text-align:center;" v-model="contact" placeholder="请输入您的联系电话") 
       button.shadow-1(type="primary" style="margin:10px;" @click="onReservationClick")  确认预约
 
   //- q-page(style="margin-bottom:80px;")
@@ -61,6 +65,10 @@
   height: 50px;
   border-radius: 10px;
   margin: 10px;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+  color: #ccc;
 }
 .form {
   margin: 10px;
@@ -108,7 +116,7 @@ export default {
   computed: {
     schedule: function() {
       let schedule = Array.from({ length: 120 }, (v, k) => (k >= 8 * 6 ? 1 : 0))
-      console.log('schedule', schedule)
+      // console.log('schedule', schedule)
       for (let i = 0; i < schedule.length; i++) {
         for (let order of this.room.orders) {
           if (i >= order.start / 600 && i < order.end / 600) {
@@ -116,8 +124,11 @@ export default {
           }
         }
       }
-      console.log('schedule', schedule)
+      // console.log('schedule', schedule)
       return schedule
+    },
+    dateString() {
+      return this.date.format('YYYY-MM-DD 周dd')
     },
     start: function() {
       let hour = Object.keys(this.startOptions)[this.startHourIndex]
@@ -133,7 +144,7 @@ export default {
       let filterdOptions = []
       filterdOptions = this.roomSchedule
       let options = numToTime(filterdOptions)
-      console.log('start', options)
+      // console.log('start', options)
       return options
     },
     startHourOptions: function() {
@@ -194,8 +205,13 @@ export default {
       startMinuteIndex: 0,
       endHourIndex: 0,
       endMinuteIndex: 0,
-      date: null
+      date: null,
+      contact: '',
+      teacher: ''
     }
+  },
+  created() {
+    this.date = this.$moment()
   },
   mounted() {
     // this.getHistory()
@@ -203,6 +219,7 @@ export default {
     let now = new Date()
     this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     let rid = this.$root.$mp.query.rid
+    this.date = this.$moment(this.$root.$mp.query.date, 'YYYY-MM-DD')
     this.getRoom(rid)
   },
   methods: {
@@ -235,16 +252,6 @@ export default {
     endMinuteChange(event) {
       this.endMinuteIndex = parseInt(event.target.value)
     },
-    // getHistory() {
-    //   this.$http
-    //     .get('/room-booking/orders/?type=personal')
-    //     .then(resp => {
-    //       this.orders = resp.data.orders
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // },
     onDeleteClick(id) {
       this.$q
         .dialog({
@@ -274,6 +281,20 @@ export default {
         })
         return
       }
+      if (!this.teacher) {
+        wx.showToast({
+          title: '请填写导师姓名',
+          icon: 'none'
+        })
+        return
+      }
+      if (!this.contact) {
+        wx.showToast({
+          title: '请填写您的联系方式',
+          icon: 'none'
+        })
+        return
+      }
       wx.showModal({
         title: '提示',
         content: '确认预约吗',
@@ -293,17 +314,14 @@ export default {
           roomID: this.room.id,
           start: this.start * 600,
           end: this.end * 600,
-          date: parseInt(this.date.valueOf() / 1000)
+          date: parseInt(this.date.valueOf() / 1000),
+          teacher: this.teacher,
+          contact: this.contact
         })
         .then(resp => {
           console.log(resp)
-          wx.showToast({
-            title: '预约成功！',
-            icon: 'success',
-            duration: 2000
-          })
-          wx.navigateTo({
-            url: '../result/main'
+          wx.redirectTo({
+            url: '../success/main'
           })
           // this.$emit('reservateSuccess')
           // this.$q.notify('预约成功！')

@@ -9,7 +9,9 @@
           | {{room.name}}
       //- div.time-pointer()
       div.time-row(v-for="(room,index) in rooms",:key="room.name")
-        div.bg-blue.time-event(:style="order.style" v-for="(order,orderIndex) in orders[index]")
+        div.bg-maroon.time-event(:style="order.style" v-for="(order,orderIndex) in orders[index]")
+          span(style="color:white;position:absolute;bottom:15px;left:5px;font-size:10px;") {{order.userName}}
+          span(style="color:white;position:absolute;bottom:5px;left:5px;font-size:10px;") ({{order.teacher}})
         div.time-cell(v-for="(time,timeIndex) in schedule",:key="time.start" @click="onTimeCellClick(room,time)")
           span  {{time.start}}
 </template>
@@ -78,14 +80,14 @@
   z-index: 200;
 }
 .time-cell:hover {
-  background-color: aqua !important;
+  background-color: #0074D9 !important;
 }
 .time-event {
   position: absolute;
   top: 1;
 }
 .time-event:hover {
-  background-color: aqua !important;
+  background-color: #0074D9 !important;
 }
 </style>
 
