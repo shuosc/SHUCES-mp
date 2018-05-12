@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="swiper">
-      <swiper indicator-dots='true' autoplay="true" interval="3000">
+      <swiper indicator-dots='true' autoplay="true" interval="4000">
         <swiper-item v-for="img in imgs" :key="img">
           <image :src="img" />
         </swiper-item>
@@ -54,7 +54,7 @@ export default {
       ],
       grids: [
         {
-          src: '/static/remarks.jpg',
+          src: '/static/quotation.png',
           name: '院长寄语',
           url: '/pages/quote/main'
         },
@@ -116,6 +116,9 @@ export default {
   created() {
     // 调用应用实例的方法获取全局数据
     this.getUserInfo()
+  },
+  onPullDownRefresh: function() {
+    wx.stopPullDownRefresh()
   }
 }
 </script>
@@ -158,7 +161,7 @@ swiper image {
 }
 .lable-name-row{
     text-align: center;
-} */
+}
 .lable {
   display: flex;
   flex-direction: column;
@@ -170,23 +173,24 @@ swiper image {
   height: 70rpx;
   border-top: 1px solid #ccc;
   margin: auto;
-  /* 设置所有元素居中 */
+设置所有元素居中 
 }
 .lable-img {
   width: 20%;
   height: 50rpx;
 }
+*/
 .author {
   margin-bottom: 0rpx;
   text-align: center;
   font-size: 25rpx;
 }
-.line {
-  /* margin: auto;
+/*.line {
+   margin: auto;
   width: 40%;
   height: 2px;
-  background: #aaa; */
-}
+  background: #aaa; 
+}*/
 .author p {
   color: #ccc;
 }
