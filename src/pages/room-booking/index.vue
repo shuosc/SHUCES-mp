@@ -14,10 +14,15 @@
         div.order-card(v-for="order in orders")
           div
             | {{order.room}}
-          div {{order.date}} 
-          div {{order.startTime}}-{{order.endTime}}
-          div 
+          div {{order.date}}  {{order.startTime}}-{{order.endTime}}
+          //- div 
             | {{order.status}}
+          div(v-if="order.status==='已开始'")
+            button(size="mini") 提前结束 
+          div(v-if="order.status==='未开始'")
+            button(size="mini" @click="onCancelOrder(order.id)") 取消预约
+          div(v-if="order.status==='已结束'")
+            button(size="mini") 已结束
     div(style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);border-radius:10px;margin:10px;")
       div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
         //- div(style="flex:1;height:2rem;")
@@ -156,10 +161,11 @@ export default {
     }
     this.date = this.dates[1]
   },
+  onShow: function() {
+    this.refresh()
+  },
   mounted: function() {
-    this.getRooms()
-    this.getHistory()
-    console.log('get rooms')
+    this.refresh()
   },
   // computed: {
   //   formatteDateIndictor: function() {
@@ -178,6 +184,10 @@ export default {
   //   }
   // },
   methods: {
+    refresh() {
+      this.getRooms()
+      this.getHistory()
+    },
     onDateIndexClick(index) {
       this.dayIndex = index
       this.date = this.dates[index]
@@ -186,7 +196,41 @@ export default {
     },
     onTimeCellClick(room, time) {
       console.log(room, time)
-      wx.navigateTo({ url: `/pages/room-booking/new/main?rid=${room.id}` })
+      wx.navigateTo({ url: `/pages/room-booking/new/main?rid=${room.id}&start=${time.no}&date=${this.date.date.format('YYYY-MM-DD')}` })
+    },
+    onCancelOrder(id) {
+      wx.showModal({
+        title: '提示',
+        content: '确认取消预约吗',
+        success: res => {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            this.cancelOrder(id)
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    },
+    cancelOrder(id) {
+      this.$http
+        .delete(`/room-booking/orders/${id}`)
+        .then(resp => {
+          wx.showToast({
+            title: '取消预约成功',
+            icon: 'success',
+            duration: 2000
+          })
+          this.getHistory()
+          this.getRooms()
+        })
+        .catch(err => {
+          wx.showToast({
+            title: err.response.data.msg,
+            icon: 'none',
+            duration: 2000
+          })
+        })
     },
     getHistory() {
       this.$http

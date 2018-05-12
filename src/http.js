@@ -32,6 +32,8 @@ if (__SERVER === 'local') {
 //     }
 //   })
 // }
+// var needAuth = false
+var loading = false
 http.interceptors.response.use(
   response => {
     // Do something with response data .
@@ -39,11 +41,17 @@ http.interceptors.response.use(
     return response.data
   },
   err => {
-    if (err.response.status === 401) {
-      console.log(err.response)
+    // console.log(store.state.user)
+    if (err.response.status === 401 && !loading) {
+      // console.log(err.response)
       // store.dispatch('login')
+      // store.commite('needAuth')
+      this.loading = true
       wx.navigateTo({
-        url: '/pages/login/main'
+        url: '/pages/login/main',
+        success: () => {
+          loading = false
+        }
       })
       // wx.naviga
     }
