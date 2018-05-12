@@ -66,7 +66,7 @@ export default {
           url: '/pages/quote/main'
         },
         {
-          src: '/static/room.png',
+          src: '/static/room1.png',
           name: '房间预约',
           url: '/pages/room-booking/main'
         },
