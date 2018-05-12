@@ -82,7 +82,7 @@
 }
 .time-event {
   position: absolute;
-  top:1;
+  top: 1;
 }
 .time-event:hover {
   background-color: aqua !important;
@@ -121,7 +121,7 @@ export default {
   methods: {
     onTimeCellClick(room, time) {
       console.log(room, time)
-      wx.navigateTo({ url: `/pages/room-booking/new/main?rid=${room.id}` })
+      this.$emit('onTimeCellClick', room, time)
     }
   }
 }

@@ -49,6 +49,12 @@
 					"name": "首页",
 					"pathName": "pages/index/main",
 					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "院长寄语",
+					"pathName": "pages/quote/main",
+					"query": "rid=e994e81e-53e7-486d-9feb-6138c7334333"
 				}
 			]
 		}

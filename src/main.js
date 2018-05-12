@@ -7,6 +7,13 @@ Vue.prototype.$http = http
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
+const moment = require('moment')
+require('moment/locale/zh-cn')
+
+Vue.use(require('vue-moment'), {
+  moment
+})
+console.log(Vue.moment().locale())
 const app = new Vue({
   el: '#app',
   // router,

@@ -1,17 +1,14 @@
 <template>
   <div class="page">
-    <div class = "swiper">
+    <div class="swiper">
       <swiper indicator-dots='true' autoplay="true" interval="3000">
-        <swiper-item><image src="/static/images/1.jpg"/></swiper-item>
-        <swiper-item><image src="/static/images/2.jpg"/></swiper-item>
-        <swiper-item><image src="/static/images/3.jpg"/></swiper-item>
-        <swiper-item><image src="/static/images/4.jpg"/></swiper-item>
-        <swiper-item><image src="/static/images/5.jpg"/></swiper-item>
-        <swiper-item><image src="/static/images/6.jpg"/></swiper-item>
+        <swiper-item v-for="img in imgs" :key="img">
+          <image :src="img" />
+        </swiper-item>
       </swiper>
     </div>
     <div class="page__bd">
-      <div class="weui-grids">
+      <div class="weui-grids grid">
         <block v-for="(item,index) in grids" :key="index">
           <navigator :url='item.url' class="weui-grid" hover-class="weui-grid_active">
             <image class="weui-grid__icon" :src="item.src" />
@@ -20,9 +17,10 @@
         </block>
       </div>
     </div>
-    <div class = "author">
-      <div class = "line"></div>
-      <p>2018 上海大学开源社区</p>
+    <div class="author">
+      <div class="line"></div>
+      <p>2018 上海大学计算机学院</p>
+      <p>上海大学开源社区提供技术支持</p>
     </div>
     <!--<div class = "lable">
        <div class = "lable-img-row">
@@ -46,11 +44,19 @@ export default {
     return {
       motto: 'Hello World',
       userInfo: {},
+      imgs: [
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/1.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/2.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/3.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/4.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/5.jpg',
+        'https://static.shuhelper.cn/shuces/mpapp/imgs/6.jpg'
+      ],
       grids: [
         {
           src: '/static/remarks.jpg',
           name: '院长寄语',
-          url: '/pages/remarks/main'
+          url: '/pages/quote/main'
         },
         {
           src: '/static/room.png',
@@ -115,9 +121,14 @@ export default {
 </script>
 
 <style scoped>
-swiper image{
-    width:100%;
-    height:350rpx
+.grid {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 5px;
+}
+swiper image {
+  width: 100%;
+  height: 350rpx;
 }
 /* .lable-img-row{
   display: flex;
@@ -148,37 +159,40 @@ swiper image{
 .lable-name-row{
     text-align: center;
 } */
-.lable{
+.lable {
   display: flex;
   flex-direction: column;
-  margin-top:50rpx;
-  margin-bottom:0;
-  margin-left:5%;
-  margin-right:5%;
-  width:50%;
-  height:70rpx;
+  margin-top: 50rpx;
+  margin-bottom: 0;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 50%;
+  height: 70rpx;
   border-top: 1px solid #ccc;
   margin: auto;
   /* 设置所有元素居中 */
 }
-.lable-img{
-  width:20%;
-  height:50rpx;
+.lable-img {
+  width: 20%;
+  height: 50rpx;
 }
-.author{
+.author {
   margin-bottom: 0rpx;
-  text-align:center;
-  font-size:25rpx;
+  text-align: center;
+  font-size: 25rpx;
 }
-.line{
-  margin: auto;
+.line {
+  /* margin: auto;
   width: 40%;
   height: 2px;
-  background: #aaa;
+  background: #aaa; */
 }
-.page__bd{
-  margin-top:50rpx;
-  margin-bottom:330rpx;
+.author p {
+  color: #ccc;
+}
+.page__bd {
+  margin-top: 50rpx;
+  margin-bottom: 330rpx;
 }
 
 .userinfo {

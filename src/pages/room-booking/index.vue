@@ -22,16 +22,16 @@
       div.ces.date(style="font-weight:bold;padding-top:10px;padding-bottom:10px;font-size:13px;display:flex;text-align:center;align-items:center;")
         //- div(style="flex:1;height:2rem;")
           | 向前
-        div(:class="{'border-date':day===i}" style="flex:1" v-for="i in 4" :key="")
+        div(:class="{'border-date':dayIndex===index}" style="flex:1" v-for="(date,index) in dates" :key="date.md",@click="onDateIndexClick(index)")
           p
-            | 周{{i+1}}
+            | 周{{date.dd}}
             br
-            | 05/06
+            | {{date.md}}
         //- div(style="flex:1;")
           | {{formatteDateIndictor}}
         //- div(style="flex:1;height:2rem;")
           | 向后
-      room-schedule(:rooms="rooms",:schedule="schedule")
+      room-schedule(:rooms="rooms",:schedule="schedule" @onTimeCellClick="onTimeCellClick")
     //- div(expand position="bottom" style="z-index:1000;")
       div.row.justify-around.full-width.bg-white.q-pb-md.q-pt-md.shadow-3
         div
@@ -53,6 +53,7 @@
   white-space: nowrap;
   margin: 10px;
   z-index: 100;
+  height: 150px;
   font-weight: bold;
   font-size: 15px;
   border-radius: 10px;
@@ -61,7 +62,7 @@
 .order-card {
   font-size: 13px;
   display: inline-block;
-  text-align:center;
+  text-align: center;
   height: 80px;
   width: 100px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -136,13 +137,24 @@ export default {
       day: 1,
       rooms: [],
       date: null,
+      dates: [],
       restrict: 4,
-      orders: []
+      orders: [],
+      dayIndex: 1
     }
   },
   created: function() {
-    let now = new Date()
-    this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    let now = this.$moment({ hour: 0 })
+    let datePointer = now.subtract(1, 'd')
+    for (let i = 0; i < 7; i++) {
+      this.dates.push({
+        dd: datePointer.format('dd'),
+        md: datePointer.format('M/D'),
+        date: datePointer.clone()
+      })
+      datePointer.add(1, 'd')
+    }
+    this.date = this.dates[1]
   },
   mounted: function() {
     this.getRooms()
@@ -166,11 +178,15 @@ export default {
   //   }
   // },
   methods: {
+    onDateIndexClick(index) {
+      this.dayIndex = index
+      this.date = this.dates[index]
+      // console.log(this.date)
+      this.getRooms()
+    },
     onTimeCellClick(room, time) {
       console.log(room, time)
-      wx.navigateTo({
-        url: 'new'
-      })
+      wx.navigateTo({ url: `/pages/room-booking/new/main?rid=${room.id}` })
     },
     getHistory() {
       this.$http
@@ -179,7 +195,7 @@ export default {
           this.orders = []
           for (let order of resp.orders) {
             let date = new Date(order.date * 1000)
-            order.date = `${date.getMonth() + 1}/${date.getDate()}`
+            order.date = this.$moment(date).format('M/D')
             order.startTime = `${parseInt(order.start / 3600)}:${formatNumber((order.end % 3600) / 60)}`
             order.endTime = `${parseInt(order.end / 3600)}:${formatNumber((order.end % 3600) / 60)}`
             this.orders.push(order)
@@ -191,7 +207,7 @@ export default {
         })
     },
     getRooms() {
-      let timestamp = this.date.valueOf() / 1000
+      let timestamp = this.date.date.format('X')
       this.$http
         .get('/room-booking/rooms', {
           timestamp: timestamp,
