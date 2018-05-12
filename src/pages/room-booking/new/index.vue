@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     div.info.shadow-1
-      | 每人每天每人每天最多有四小时的预约时间。
+      | 每人每天多有四小时的预约时间。
     div.form.shadow-1
       div(style="display:flex;")
         div 教室 

@@ -38,7 +38,7 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env,
-      __SERVER: '"' + server + '"'
+      __SERVER: '"' + server ? server : 'prod' + '"'
     }),
     new webpack.DefinePlugin({
       'process.env': config.dev.env
