@@ -261,6 +261,10 @@ export default {
           this.rooms = res.rooms
           this.restrict = res.restrict
         })
+    },
+    onPullDownRefresh: function() {
+      this.refresh()
+      wx.stopPullDownRefresh()
     }
     // onPreviousClick() {
     //   this.date = date.subtractFromDate(this.date, { days: 1 })
