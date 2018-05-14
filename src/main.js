@@ -13,7 +13,7 @@ require('moment/locale/zh-cn')
 Vue.use(require('vue-moment'), {
   moment
 })
-console.log(Vue.moment().locale())
+// console.log(Vue.moment().locale())
 const app = new Vue({
   el: '#app',
   // router,

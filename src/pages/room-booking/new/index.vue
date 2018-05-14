@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     div.info.shadow-1
-      | 每人每天多有四小时的预约时间。
+      | 每人每天多有四小时的预约时间，预约成功后请至1103领取钥匙。
     div.form.shadow-1
       div(style="display:flex;")
         div 教室 
@@ -31,6 +31,9 @@
           picker(style="flex:1;height:100%;text-align:left;" @change="endMinuteChange" :value="endMinuteIndex" :range="endMinuteOptions")
             view(class="picker")
               | {{endMinuteOptions[endMinuteIndex]}}
+      div(style="display:flex;")
+        div 用途
+        input.ces(style="flex:4;text-align:center;" v-model="remark" placeholder="请输入本次预约用途")               
       div(style="display:flex;")
         div 导师
         input.ces(style="flex:4;text-align:center;" v-model="teacher" placeholder="请输入导师姓名") 
@@ -68,7 +71,7 @@
   padding: 10px;
   font-size: 15px;
   text-align: center;
-  color: #ccc;
+  color: #aaa;
 }
 .form {
   margin: 10px;
@@ -207,7 +210,8 @@ export default {
       endMinuteIndex: 0,
       date: null,
       contact: '',
-      teacher: ''
+      teacher: '',
+      remark: ''
     }
   },
   created() {
@@ -316,7 +320,8 @@ export default {
           end: this.end * 600,
           date: parseInt(this.date.valueOf() / 1000),
           teacher: this.teacher,
-          contact: this.contact
+          contact: this.contact,
+          remark: this.remark
         })
         .then(resp => {
           console.log(resp)
