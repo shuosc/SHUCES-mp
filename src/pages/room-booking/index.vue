@@ -150,7 +150,7 @@ export default {
   },
   created: function() {
     let now = this.$moment({ hour: 0 })
-    let datePointer = now.subtract(1, 'd')
+    let datePointer = now.subtract(4, 'd')
     for (let i = 0; i < 7; i++) {
       this.dates.push({
         dd: datePointer.format('dd'),
@@ -183,6 +183,10 @@ export default {
   //     return this.date > nowDate
   //   }
   // },
+  onPullDownRefresh: function() {
+    this.refresh()
+    wx.stopPullDownRefresh()
+  },
   methods: {
     refresh() {
       this.getRooms()
@@ -261,10 +265,6 @@ export default {
           this.rooms = res.rooms
           this.restrict = res.restrict
         })
-    },
-    onPullDownRefresh: function() {
-      this.refresh()
-      wx.stopPullDownRefresh()
     }
     // onPreviousClick() {
     //   this.date = date.subtractFromDate(this.date, { days: 1 })
