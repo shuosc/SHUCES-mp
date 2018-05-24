@@ -26,7 +26,7 @@
       <!-- <div class="weui-footer__links">
         <navigator url="" class="weui-footer__link">WeUI首页</navigator>
       </div> -->
-      <div class="weui-footer__text">上海大学开源社区提供技术支持</div>      
+      <div class="weui-footer__text">上海大学开源社区提供技术支持</div>
       <div class="weui-footer__text">Copyright © 2018 上海大学计算机学院</div>
     </div>
     <!--<div class = "lable">
@@ -39,7 +39,7 @@
         <div class = "l-n-left">label</div>
         <div class = "l-n-midd">labe2</div>
         <div class = "l-n-right">labe3</div>
-      </div> 
+      </div>
     </div>-->
   </div>
 </template>
@@ -67,7 +67,7 @@ export default {
         },
         {
           src: '/static/room1.png',
-          name: '房间预约',
+          name: '会议室预约',
           url: '/pages/room-booking/main'
         },
         {
@@ -177,7 +177,7 @@ swiper image {
   height: 70rpx;
   border-top: 1px solid #ccc;
   margin: auto;
-设置所有元素居中 
+设置所有元素居中
 }
 .lable-img {
   width: 20%;
@@ -193,7 +193,7 @@ swiper image {
    margin: auto;
   width: 40%;
   height: 2px;
-  background: #aaa; 
+  background: #aaa;
 }*/
 .author p {
   color: #ccc;

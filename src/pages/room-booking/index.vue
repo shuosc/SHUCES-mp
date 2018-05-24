@@ -15,10 +15,10 @@
           div
             | {{order.room}}
           div {{order.date}}  {{order.startTime}}-{{order.endTime}}
-          //- div 
+          //- div
             | {{order.status}}
           div(v-if="order.status==='已开始'")
-            button(size="mini" @click="onFinishOrder(order.id)") 提前结束 
+            button(size="mini" @click="onFinishOrder(order.id)") 提前结束
           div(v-if="order.status==='未开始'")
             button(size="mini" @click="onCancelOrder(order.id)") 取消预约
           div(v-if="order.status==='已结束'")
@@ -182,9 +182,9 @@ export default {
   onShow: function() {
     this.refresh()
   },
-  mounted: function() {
-    this.refresh()
-  },
+  // mounted: function() {
+  //   this.refresh()
+  // },
   // computed: {
   //   formatteDateIndictor: function() {
   //     return date.formatDate(this.date, 'MM/DD(ddd)')
@@ -299,7 +299,7 @@ export default {
             order.startTime = `${parseInt(order.start / 3600)}:${formatNumber((order.start % 3600) / 60)}`
             order.endTime = `${parseInt(order.end / 3600)}:${formatNumber((order.end % 3600) / 60)}`
             this.orders.push(order)
-            console.log(order)
+            // console.log(order)
           }
         })
         .catch(err => {

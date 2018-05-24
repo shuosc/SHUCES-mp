@@ -1,19 +1,21 @@
 <template lang="pug">
   div
     div.info.shadow-1
-      | 每人每天多有四小时的预约时间，预约成功后请至1103领取钥匙。
-    div.form.shadow-1
+      | 每人每天多有四小时的预约时间。
+    div.form.shadow-1(v-show="!loading")
       div(style="display:flex;")
-        div 教室 
-        div.ces(style="flex:4;text-align:center;") {{room.name}}
+        div 教室
+        div.ces(style="flex:3;text-align:center;") {{room.name}}
+        div(style="flex:1;")
       div(style="display:flex;")
         div 日期
-        div.ces(style="flex:4;text-align:center;") {{dateString}}
+        div.ces(style="flex:3;text-align:center;") {{dateString}}
+        div(style="flex:1;")
       div(style="padding-top:20px;padding-bottom:20px;")
         room-schedule(:rooms="[room]" :roomVisible="false")
       div(style="display:flex;")
         div 开始
-        div.ces(style="flex:4;text-align:center;display:flex;") 
+        div.ces(style="flex:3;text-align:center;display:flex;")
           picker(style="flex:1;height:100%;text-align:right;" @change="startHourChange" :value="startHourIndex" :range="startHourOptions")
             view(class="picker")
               | {{startHourOptions[startHourIndex]}}
@@ -21,9 +23,10 @@
           picker(style="flex:1;height:100%;text-align:left;" @change="startMinuteChange" :value="startMinuteIndex" :range="startMinuteOptions")
             view(class="picker")
               | {{startMinuteOptions[startMinuteIndex]}}
+        div(style="flex:1;")
       div(style="display:flex;")
         div 结束
-        div.ces(style="flex:4;text-align:center;display:flex;") 
+        div.ces(style="flex:3;text-align:center;display:flex;")
           picker(style="flex:1;height:100%;text-align:right;" @change="endHourChange" :value="endHourIndex" :range="endHourOptions")
             view(class="picker")
               | {{endHourOptions[endHourIndex]}}
@@ -31,16 +34,26 @@
           picker(style="flex:1;height:100%;text-align:left;" @change="endMinuteChange" :value="endMinuteIndex" :range="endMinuteOptions")
             view(class="picker")
               | {{endMinuteOptions[endMinuteIndex]}}
+        div(style="flex:1;")
       div(style="display:flex;")
         div 用途
-        input.ces(style="flex:4;text-align:center;" v-model="remark" placeholder="请输入本次预约用途")               
+        input.ces(style="flex:3;" v-model="remark" placeholder="请输入本次预约用途")
+        div(style="flex:1;")
+      div(style="display:flex;" v-for="(member,memberIndex) in members")
+        div 成员
+        div.ces(style="flex:3;" v-model="teacher" ) {{member.name}}({{member.id}})
+        div(style="flex:1;display:flex;align-items:middle;")
+          button(size="mini" v-if="memberIndex!==0"  type="warn" @click="onMemberDelete(memberIndex)") -
       div(style="display:flex;")
-        div 导师
-        input.ces(style="flex:4;text-align:center;" v-model="teacher" placeholder="请输入导师姓名") 
+        div 添加
+        input.ces(style="flex:3;" v-model="newMemberID" placeholder="请输入成员账号")
+        div(style="flex:1;display:flex;align-items:middle;")
+          button(@click="onMemberAdd" size="mini") +
       div(style="display:flex;")
         div 电话
-        input.ces(style="flex:4;text-align:center;" v-model="contact" placeholder="请输入您的联系电话") 
-      button.shadow-1(type="primary" style="margin:10px;" @click="onReservationClick")  确认预约
+        input.ces(style="flex:3;" v-model="contact" placeholder="请输入您的联系电话")
+        div(style="flex:1;")
+      button.shadow-1(:loading="submitting" type="primary" style="margin:10px;" @click="onReservationClick")  确认预约
 
   //- q-page(style="margin-bottom:80px;")
     //- div.q-ml-md.q-mr-md
@@ -65,7 +78,7 @@
 
 <style>
 .info {
-  height: 50px;
+  height: 20px;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
@@ -81,8 +94,9 @@
 }
 .form > div {
   border-bottom: 1px solid #eee;
-  padding-top: 10px;
-  /* padding-bottom: 10px; */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 5px;
 }
 .form > div > div:first-child {
   flex: 1;
@@ -98,6 +112,7 @@
 import { formatNumber } from '@/utils'
 const timeOptions = Array.from({ length: 120 }, (v, k) => k)
 import RoomSchedule from '@/components/RoomSchedule'
+import { mapState } from 'vuex'
 const numToTime = function(nums) {
   let options = {}
   for (let i = 0; i < nums.length; i++) {
@@ -117,6 +132,7 @@ export default {
   },
   name: 'RoomBookingNew',
   computed: {
+    ...mapState(['user']),
     schedule: function() {
       let schedule = Array.from({ length: 120 }, (v, k) => (k >= 8 * 6 ? 1 : 0))
       // console.log('schedule', schedule)
@@ -208,26 +224,72 @@ export default {
       startMinuteIndex: 0,
       endHourIndex: 0,
       endMinuteIndex: 0,
+      submitting: false,
       date: null,
       contact: '',
       teacher: '',
-      remark: ''
+      remark: '',
+      members: [],
+      loading: true,
+      newMemberID: ''
     }
   },
   created() {
     this.date = this.$moment()
   },
+  onUnload() {
+    this.loading = true
+  },
   mounted() {
     // this.getHistory()
+    // wx.showNavigationBarLoading()
+    this.loading = true
     console.log('from new')
     let now = new Date()
     this.date = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     let rid = this.$root.$mp.query.rid
     this.date = this.$moment(this.$root.$mp.query.date, 'YYYY-MM-DD')
     this.getRoom(rid)
+    this.members = []
+    this.members.push({
+      id: this.user.userID,
+      name: this.user.name
+    })
   },
   methods: {
+    onMemberDelete(memberIndex) {
+      this.members.splice(memberIndex, 1)
+    },
+    onMemberAdd() {
+      for (let i = 0; i < this.members.length; i++) {
+        let member = this.members[i]
+        if (member.id === this.newMemberID) {
+          wx.showToast({
+            title: '用户已添加',
+            icon: 'none'
+          })
+          return
+        }
+      }
+      this.$http
+        .get(`/users/${this.newMemberID}`)
+        .then(resp => {
+          this.members.push({
+            id: resp.user.id,
+            name: resp.user.name
+          })
+          this.newMemberID = ''
+        })
+        .catch(err => {
+          wx.showToast({
+            title: '用户未激活，需要在本系统进行一次登陆以激活',
+            icon: 'none'
+          })
+          console.log(err)
+        })
+    },
     getRoom(roomID) {
+      wx.showNavigationBarLoading()
       let timestamp = parseInt(this.date.valueOf() / 1000)
       this.$http
         .get(`/room-booking/rooms/${roomID}`, {
@@ -237,6 +299,8 @@ export default {
         .then(res => {
           this.room = res.room
           this.restrict = res.restrict
+          this.loading = false
+          wx.hideNavigationBarLoading()
         })
     },
     startHourChange(event) {
@@ -285,13 +349,13 @@ export default {
         })
         return
       }
-      if (!this.teacher) {
-        wx.showToast({
-          title: '请填写导师姓名',
-          icon: 'none'
-        })
-        return
-      }
+      // if (!this.teacher) {
+      //   wx.showToast({
+      //     title: '请填写导师姓名',
+      //     icon: 'none'
+      //   })
+      //   return
+      // }
       if (!this.contact) {
         wx.showToast({
           title: '请填写您的联系方式',
@@ -313,17 +377,22 @@ export default {
       })
     },
     postReservationForm() {
+      this.submitting = true
       this.$http
         .post('/room-booking/orders/', {
           roomID: this.room.id,
           start: this.start * 600,
           end: this.end * 600,
           date: parseInt(this.date.valueOf() / 1000),
-          teacher: this.teacher,
+          // teacher: this.teacher,
           contact: this.contact,
-          remark: this.remark
+          remark: this.remark,
+          members: this.members.map(x => {
+            return x.id
+          })
         })
         .then(resp => {
+          this.submitting = false
           console.log(resp)
           wx.redirectTo({
             url: '../success/main'
@@ -332,6 +401,7 @@ export default {
           // this.$q.notify('预约成功！')
         })
         .catch(err => {
+          this.submitting = false
           console.log(err.response.data.msg)
           wx.showToast({
             title: err.response.data.msg,

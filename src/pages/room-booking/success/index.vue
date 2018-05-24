@@ -6,7 +6,7 @@
       </div>
       <div class="weui-msg__text-area">
         <div class="weui-msg__title">预定成功</div>
-        <div class="weui-msg__desc">请在您预订的时间之前前往计算机学院1103领取房间钥匙。
+        <!-- <div class="weui-msg__desc">请在您预订的时间之前前往计算机学院1103领取房间钥匙。 -->
           <!-- <navigator url="" class="weui-msg__link">文字链接</navigator> -->
         </div>
       </div>
