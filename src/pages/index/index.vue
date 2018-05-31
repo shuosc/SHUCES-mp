@@ -29,18 +29,6 @@
       <div class="weui-footer__text">上海大学开源社区提供技术支持</div>
       <div class="weui-footer__text">Copyright © 2018 上海大学计算机学院</div>
     </div>
-    <!--<div class = "lable">
-       <div class = "lable-img-row">
-          <image src = "/static/developing.png"></image>
-          <image src = "/static/developing.png"></image>
-          <image src = "/static/developing.png"></image>
-      </div>
-      <div class = "lable-name-row">
-        <div class = "l-n-left">label</div>
-        <div class = "l-n-midd">labe2</div>
-        <div class = "l-n-right">labe3</div>
-      </div>
-    </div>-->
   </div>
 </template>
 
@@ -71,9 +59,9 @@ export default {
           url: '/pages/room-booking/main'
         },
         {
-          src: '/static/developing.png',
-          name: '敬请期待',
-          url: ''
+          src: '/static/school.png',
+          name: '学院简介',
+          url: '/pages/introduce/main'
         },
         {
           src: '/static/developing.png',
@@ -137,64 +125,11 @@ swiper image {
   width: 100%;
   height: 350rpx;
 }
-/* .lable-img-row{
-  display: flex;
-  flex-direction: row;
-}
-.lable-name-row{
-  display: flex;
-  flex-direction: row;
-  margin-top:15rpx;
-}
-.lable-img-row image{
-  width:30%;
-  height:50rpx;
-  margin:auto;
-}
-.l-n-left{
-  margin-left:5%;
-  width:30%;
-}
-.l-n-midd{
-  width:30%;
-
-}
-.l-n-right{
-  width:30%;
-  margin-right:5%;
-}
-.lable-name-row{
-    text-align: center;
-}
-.lable {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50rpx;
-  margin-bottom: 0;
-  margin-left: 5%;
-  margin-right: 5%;
-  width: 50%;
-  height: 70rpx;
-  border-top: 1px solid #ccc;
-  margin: auto;
-设置所有元素居中
-}
-.lable-img {
-  width: 20%;
-  height: 50rpx;
-}
-*/
 .author {
   margin-bottom: 0rpx;
   text-align: center;
   font-size: 25rpx;
 }
-/*.line {
-   margin: auto;
-  width: 40%;
-  height: 2px;
-  background: #aaa;
-}*/
 .author p {
   color: #ccc;
 }
