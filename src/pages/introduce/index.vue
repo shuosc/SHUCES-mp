@@ -89,7 +89,7 @@ ul.a {
 .weui-artical {
   flex-direction: column;
   margin-top: 5%;
-  margin-bottom: 75rpx;
+  margin-bottom: 150rpx;
 }
 .weui-artical__h1 {
   text-align: center;

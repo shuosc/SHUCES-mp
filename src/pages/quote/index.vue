@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="principle">
-      <image src="https://static.shuhelper.cn/shuces/mpapp/imgs/ykguo.jpg" />
+      <image src="/static/images/Guoyk.jpg"/>
     </div>
     <blockquote>
       <p class="quotation">
@@ -22,12 +22,10 @@ export default {}
   align-items: center;
 }
 .principle {
-  margin-top: 15%;
+
 }
 .principle image {
-  width: 200rpx;
-  height: 200rpx;
-  margin: auto;
+  height: 750rpx;
 }
 .remarks {
   margin-top: 50rpx;

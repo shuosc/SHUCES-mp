@@ -49,6 +49,11 @@ export default {
       ],
       grids: [
         {
+          src: '/static/school.png',
+          name: '学院简介',
+          url: '/pages/introduce/main'
+        },
+        {
           src: '/static/quotation.png',
           name: '院长寄语',
           url: '/pages/quote/main'
@@ -57,11 +62,6 @@ export default {
           src: '/static/room1.png',
           name: '会议室预约',
           url: '/pages/room-booking/main'
-        },
-        {
-          src: '/static/school.png',
-          name: '学院简介',
-          url: '/pages/introduce/main'
         },
         {
           src: '/static/developing.png',
@@ -121,9 +121,12 @@ export default {
   border-radius: 10px;
   margin: 5px;
 }
+swiper {
+  height: 450rpx;
+}
 swiper image {
   width: 100%;
-  height: 350rpx;
+  height: 450rpx;
 }
 .author {
   margin-bottom: 0rpx;
@@ -135,7 +138,7 @@ swiper image {
 }
 .page__bd {
   margin-top: 50rpx;
-  margin-bottom: 330rpx;
+  margin-bottom: 300rpx;
 }
 
 .userinfo {
