@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="principle">
-      <image src="/static/images/Guoyk.jpg"/>
+      <image src="/static/Guoyk.jpg"/>
     </div>
     <div class = "pic-note">上海大学计算机学院院长&emsp;郭毅可</div>
     <div class = "line"></div>
