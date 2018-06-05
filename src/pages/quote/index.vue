@@ -11,23 +11,23 @@
         <p>院长寄语</p>
       </div>
       <div class="quotation">
-        <p>什么是真正的一流大学?<br/></p>
+        <p>&emsp;什么是真正的一流大学?<br/></p>
         <div class = "quotation"><br/></div>
-        <p>在我看来，<br/></p>
-        <p>就是要凝聚一批学者，<br/></p>
-        <p>他们以为人类做出贡献、<br/></p>
-        <p>产生让人类铭记的研究为目标。<br/></p>
-        <p>有了这样一批学者当老师，<br/></p>
-        <p>继而把做科研的乐趣<br/></p>
-        <p>传递给年轻的学生，<br/></p>
-        <p>让他们觉得青春时代受到很好的教育。<br/></p>
+        <p>&emsp;在我看来，<br/></p>
+        <p>&emsp;就是要凝聚一批学者，<br/></p>
+        <p>&emsp;他们以为人类做出贡献、<br/></p>
+        <p>&emsp;产生让人类铭记的研究为目标。<br/></p>
+        <p>&emsp;有了这样一批学者当老师，<br/></p>
+        <p>&emsp;继而把做科研的乐趣<br/></p>
+        <p>&emsp;传递给年轻的学生，<br/></p>
+        <p>&emsp;让他们觉得青春时代受到很好的教育。<br/></p>
         <div class = "quotation"><br/></div>
-        <p>——这样的大学就是一流大学。<br/></p>
-        <p>我们要为建设这样的大学而踏实奋斗！</p>
+        <p>&emsp;——这样的大学就是一流大学。<br/></p>
+        <p>&emsp;我们要为建设这样的大学而踏实奋斗！</p>
       </div>
     </div>
     <div class = "line" ></div>
-    <div class = "quotation"><br/></div>
+    <div class="weui-footer__text"><p>Copyright © 2018 上海大学计算机学院</p></div>
   </div>
 </template>
 
@@ -58,7 +58,7 @@
     font-family: 等线;
   }
   .line{
-    margin-top: 10rpx;
+    margin-top: 20rpx;
     width:85%;
     height: 2rpx;
     background:#aaa;
@@ -97,6 +97,13 @@
     font-family: 宋体;
     font-size: 33rpx;
     line-height: 2.3;
+  }
+  .weui-footer__text{
+    margin: 15rpx 0rpx 15rpx 0rpx;
+    width: 100%;
+    text-align: center;
+    font-size: 18rpx;
+    text-decoration: 	gray;
   }
 
 </style>
