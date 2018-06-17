@@ -72,11 +72,10 @@
           在世界一流大学和一流学科建设的道路上努力做出贡献，服务上海，服务全国。
       </p>
     </blockquote>
-    <!-- <div class="copyright">Copyright © 2018 上海大学计算机学院</div> -->
-    <div class="weui-footer weui-footer_fixed-bottom">
+    <!-- <div class="weui-footer weui-footer_fixed-bottom">
       <div class="weui-footer__text">上海大学开源社区提供技术支持</div>
       <div class="weui-footer__text">Copyright © 2018 上海大学计算机学院</div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

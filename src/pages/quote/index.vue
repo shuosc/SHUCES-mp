@@ -26,8 +26,7 @@
         <p>&emsp;我们要为建设这样的大学而踏实奋斗！</p>
       </div>
     </div>
-    <div class = "line" ></div>
-    <div class="copyright">上海大学开源社区提供技术支持<br/>Copyright © 2018 上海大学计算机学院</div>
+    <!-- <div class="copyright">上海大学开源社区提供技术支持<br/>Copyright © 2018 上海大学计算机学院</div> -->
   </div>
 </template>
 
@@ -65,7 +64,7 @@
   }
   .paragraph{
     width: 100%;
-    margin: 40rpx 0rpx 5rpx 0rpx;
+    margin: 40rpx 20rpx 70rpx 30rpx;
     text-align: center;
   }
   .title-block{
@@ -98,12 +97,12 @@
     font-size: 33rpx;
     line-height: 2.3;
   }
-  .copyright{
+  /* .copyright{
     margin: 15rpx 0rpx 15rpx 0rpx;
     width: 100%;
     color: #999;
     font-size: 22rpx;
     text-align: center;
-  }
+  } */
 
 </style>
