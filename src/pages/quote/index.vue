@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class = "line" ></div>
-    <div class="weui-footer__text"><p>Copyright © 2018 上海大学计算机学院</p></div>
+    <div class="copyright">上海大学开源社区提供技术支持<br/>Copyright © 2018 上海大学计算机学院</div>
   </div>
 </template>
 
@@ -59,7 +59,7 @@
   }
   .line{
     margin-top: 20rpx;
-    width:85%;
+    width:90%;
     height: 2rpx;
     background:#aaa;
   }
@@ -98,12 +98,12 @@
     font-size: 33rpx;
     line-height: 2.3;
   }
-  .weui-footer__text{
+  .copyright{
     margin: 15rpx 0rpx 15rpx 0rpx;
     width: 100%;
+    color: #999;
+    font-size: 22rpx;
     text-align: center;
-    font-size: 18rpx;
-    text-decoration: 	gray;
   }
 
 </style>

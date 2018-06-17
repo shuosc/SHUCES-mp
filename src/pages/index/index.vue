@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="swiper">
-      <swiper indicator-dots='true' autoplay="true" interval="4000">
+      <swiper indicator-dots='true' autoplay="true" interval="4500">
         <swiper-item v-for="img in imgs" :key="img">
           <image :src="img" />
         </swiper-item>
