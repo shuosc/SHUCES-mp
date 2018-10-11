@@ -1,32 +1,34 @@
 <template>
   <div class="page">
-    <div class="principle">
-      <image src="/static/Guoyk.jpg"/>
-    </div>
-    <div class = "pic-note">上海大学计算机学院院长&emsp;郭毅可</div>
-    <div class = "line"></div>
-    <div class = "paragraph">
-      <div class = "title-block">
-        <image src = "/static/block.png"/>
-        <p>院长寄语</p>
+      <div class="principle">
+          <image src="/static/Guoyz.jpg"/>
       </div>
-      <div class="quotation">
-        <p>&emsp;什么是真正的一流大学?<br/></p>
-        <div class = "quotation"><br/></div>
-        <p>&emsp;在我看来，<br/></p>
-        <p>&emsp;就是要凝聚一批学者，<br/></p>
-        <p>&emsp;他们以为人类做出贡献、<br/></p>
-        <p>&emsp;产生让人类铭记的研究为目标。<br/></p>
-        <p>&emsp;有了这样一批学者当老师，<br/></p>
-        <p>&emsp;继而把做科研的乐趣<br/></p>
-        <p>&emsp;传递给年轻的学生，<br/></p>
-        <p>&emsp;让他们觉得青春时代受到很好的教育。<br/></p>
-        <div class = "quotation"><br/></div>
-        <p>&emsp;——这样的大学就是一流大学。<br/></p>
-        <p>&emsp;我们要为建设这样的大学而踏实奋斗！</p>
+      <div class = "pic-note">上海大学计算机学院院长&emsp;郭毅可</div>
+      <div class = "line"></div>
+      <div class = "paragraph">
+          <div class = "title-block">
+              <image src = "/static/block.png"/>
+              <p>院长寄语</p>
+          </div>
+          <div class="quotation">
+              <p>&emsp;</p>
+              <p>&emsp;什么是真正的一流大学?<br/></p>
+              <div class = "quotation"><br/></div>
+              <p>&emsp;在我看来，<br/></p>
+              <p>&emsp;就是要凝聚一批学者，<br/></p>
+              <p>&emsp;他们以为人类做出贡献、<br/></p>
+              <p>&emsp;产生让人类铭记的研究为目标。<br/></p>
+              <p>&emsp;有了这样一批学者当老师，<br/></p>
+              <p>&emsp;继而把做科研的乐趣<br/></p>
+              <p>&emsp;传递给年轻的学生，<br/></p>
+              <p>&emsp;让他们觉得青春时代受到很好的教育。<br/></p>
+              <div class = "quotation"><br/></div>
+              <p>&emsp;——这样的大学就是一流大学。<br/></p>
+              <p>&emsp;我们要为建设这样的大学而踏实奋斗！</p>
+              <p>&emsp;</p>
+          </div>
       </div>
-    </div>
-    <!-- <div class="copyright">上海大学开源社区提供技术支持<br/>Copyright © 2018 上海大学计算机学院</div> -->
+      <!-- <div class="copyright">上海大学开源社区提供技术支持<br/>Copyright © 2018 上海大学计算机学院</div> -->
   </div>
 </template>
 
@@ -41,25 +43,26 @@
     align-items: center;
   }
   .principle {
-    width: 100%;
-    height: 1100rpx;
+    margin: 20rpx auto;
+    width: 90%;
+    /* height: 1100rpx; */
   }
   .principle image {
     width: 100%;
-    height: 1100rpx;
+    /* height: 1100rpx; */
   }
   .pic-note {
     width: 100%;
-    margin-top: 28rpx;
+    margin-top: 20rpx;
     margin-bottom: 28rpx;
     text-align: center;
     font-size: 30rpx;
     font-family: 等线;
   }
   .line{
-    margin-top: 20rpx;
+    margin-top: 30rpx;
     width:90%;
-    height: 2rpx;
+    height: 3rpx;
     background:#aaa;
   }
   .paragraph{
@@ -72,6 +75,7 @@
     flex-direction: row;
     width: 100%;
     align-items: left;
+    margin: 50rpx auto
   }
   .title-block image{
     margin-left: 40rpx;
@@ -93,7 +97,7 @@
   }
   .quotation p{
     text-align: left;
-    font-family: 宋体;
+    font-family: 楷体;
     font-size: 33rpx;
     line-height: 2.3;
   }
